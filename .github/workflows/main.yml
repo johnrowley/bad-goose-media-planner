@@ -9,10 +9,10 @@ on:
     
 
 env:
-  AZURE_WEBAPP_NAME: your-app-service-name
+  AZURE_WEBAPP_NAME: bad-goose
   AZURE_WEBAPP_PACKAGE_PATH: "./publish"
-  DOTNET_VERSION: "8.0.x"
-  PROJECT_PATH: "./MyWebApp/MyWebApp.csproj"
+  DOTNET_VERSION: "10.0.x"
+  PROJECT_PATH: "./MediaPlanApp/MediaPlannApp.csproj"
 
 jobs:
   build-and-deploy:
