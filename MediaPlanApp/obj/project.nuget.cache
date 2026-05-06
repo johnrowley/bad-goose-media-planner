@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "jrc4Av6JiiA=",
+  "success": true,
+  "projectFilePath": "/Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp/MediaPlanApp.csproj",
+  "expectedPackageFiles": [
+    "/Users/johnrowley/.nuget/packages/microsoft.aspnetcore.app.internal.assets/10.0.6/microsoft.aspnetcore.app.internal.assets.10.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}
