@@ -26,6 +26,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9BcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp/Components/Pages/ClientReport.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9DbGllbnRSZXBvcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp/Components/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -40,6 +44,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp/Components/Pages/NotFound.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ob3RGb3VuZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp/Components/Pages/Survey.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9TdXJ2ZXkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp/Components/Pages/Survey1.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9TdXJ2ZXkxLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp/Components/Pages/Weather.razor]

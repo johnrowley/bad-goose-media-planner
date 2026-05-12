@@ -1,0 +1,313 @@
+@page "/survey1"
+@rendermode InteractiveServer
+
+<PageTitle>Media Plan Survey</PageTitle>
+
+<style>
+    .step-panel {
+        animation: fadeSlide 0.3s ease-in-out;
+    }
+    @@keyframes fadeSlide {
+        from { opacity: 0; transform: translateX(18px); }
+        to   { opacity: 1; transform: translateX(0); }
+    }
+    .step-indicator {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+    .step-indicator::before {
+        content: '';
+        position: absolute;
+        top: 16px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #dee2e6;
+        z-index: 0;
+    }
+    .step-bubble {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+        flex: 1;
+    }
+    .step-bubble .circle {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #dee2e6;
+        color: #6c757d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: background 0.3s, color 0.3s;
+    }
+    .step-bubble.active .circle  { background: #0d6efd; color: #fff; }
+    .step-bubble.done .circle    { background: #198754; color: #fff; }
+    .step-bubble .label {
+        font-size: 0.7rem;
+        margin-top: 4px;
+        color: #6c757d;
+        text-align: center;
+    }
+    .step-bubble.active .label { color: #0d6efd; font-weight: 600; }
+    .step-bubble.done .label   { color: #198754; }
+</style>
+
+<h1>Media Plan Survey</h1>
+<p class="text-muted mb-4">Answer the questions below to receive a personalised media plan recommendation.</p>
+
+@if (submitted)
+{
+    <div class="card border-success">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Your Responses</h5>
+        </div>
+        <div class="card-body">
+            @foreach (var group in Groups)
+            {
+                <h6 class="text-muted mt-3">@group.Name</h6>
+                <dl class="row">
+                    @foreach (var q in group.Questions)
+                    {
+                        var answer = responses[q.Id];
+                        if (!string.IsNullOrEmpty(answer))
+                        {
+                            <dt class="col-sm-6">@q.Text</dt>
+                            <dd class="col-sm-6">@answer</dd>
+                        }
+                    }
+                </dl>
+            }
+            <button class="btn btn-outline-secondary mt-2" @onclick="Reset">Start Again</button>
+        </div>
+    </div>
+}
+else
+{
+    @* Step indicator *@
+    <div class="step-indicator">
+        @for (int i = 0; i < Groups.Length; i++)
+        {
+            var idx = i;
+            var state = idx < currentStep ? "done" : idx == currentStep ? "active" : "";
+            <div class="step-bubble @state">
+                <div class="circle">
+                    @if (idx < currentStep)
+                    { <span>&#10003;</span> }
+                    else
+                    { <span>@(idx + 1)</span> }
+                </div>
+                <span class="label">@Groups[idx].Name</span>
+            </div>
+        }
+    </div>
+
+    @* Progress bar *@
+    <div class="progress mb-4" style="height: 6px;">
+        <div class="progress-bar bg-primary" style="width: @ProgressPercent%;" role="progressbar"></div>
+    </div>
+
+    @* Current step questions *@
+    <div class="step-panel" @key="currentStep">
+        <h5 class="mb-3">@CurrentGroup.Name</h5>
+
+        @foreach (var q in CurrentGroup.Questions)
+        {
+            <div class="mb-4">
+                <label class="form-label fw-semibold">@q.Number. @q.Text</label>
+                <select class="form-select" @bind="responses[q.Id]">
+                    <option value="">— Select an option —</option>
+                    @foreach (var opt in q.Options)
+                    {
+                        <option value="@opt">@opt</option>
+                    }
+                </select>
+            </div>
+        }
+    </div>
+
+    @* Navigation *@
+    <div class="d-flex justify-content-between mt-4">
+        <button class="btn btn-outline-secondary" @onclick="Back" disabled="@(currentStep == 0)">
+            &larr; Back
+        </button>
+
+        @if (currentStep < Groups.Length - 1)
+        {
+            <button class="btn btn-primary" @onclick="Next">
+                Next &rarr;
+            </button>
+        }
+        else
+        {
+            <button class="btn btn-success" @onclick="Submit">
+                Submit
+            </button>
+        }
+    </div>
+
+    <p class="text-muted small mt-3">Step @(currentStep + 1) of @Groups.Length</p>
+}
+
+@code {
+    private record Question(string Id, int Number, string Text, string[] Options);
+    private record Group(string Name, Question[] Questions);
+
+    private static readonly Group[] Groups =
+    [
+        new("Campaign", [
+            new("objective", 1, "What is the main campaign objective?",
+            [
+                "Build brand awareness", "Launch a new product or service",
+                "Generate leads or enquiries", "Drive online sales",
+                "Drive store visits / footfall", "Increase bookings or appointments",
+                "Promote an event", "Grow market share", "Retain existing customers",
+                "Win back lapsed customers", "Recruit staff",
+                "Change brand perception", "Full-funnel campaign",
+            ]),
+            new("success_measure", 2, "What is the primary measure of success?",
+            [
+                "Reach / awareness", "Brand recall", "Website visits",
+                "Leads / enquiries", "Phone calls", "Online sales",
+                "Store visits / footfall", "In-store sales", "Bookings / appointments",
+                "App installs", "Event attendance", "Return on ad spend",
+                "Cost per lead", "Cost per acquisition", "Not sure",
+            ]),
+            new("promoting", 3, "What are you promoting?",
+            [
+                "Everyday consumer product", "Premium / luxury product",
+                "Local service", "Professional service", "Financial product",
+                "Health / wellness product", "Food / drink", "Retail / e-commerce",
+                "Property / home improvement", "Automotive", "Travel / leisure",
+                "Education / training", "Entertainment / event",
+                "B2B product or service", "Recruitment / employer brand",
+                "Public information campaign", "Other",
+            ]),
+        ]),
+
+        new("Audience", [
+            new("audience", 4, "Who is the primary audience?",
+            [
+                "New customers", "Existing customers", "Lapsed customers",
+                "Competitor customers", "Website visitors", "Previous enquirers / leads",
+                "High-value customers", "Local residents", "Tourists / visitors",
+                "Parents", "Students", "Homeowners", "Renters",
+                "Business decision-makers", "Employees / job seekers",
+                "General public", "Not sure",
+            ]),
+            new("b2b_b2c", 5, "Is this mainly a consumer or business audience?",
+            [
+                "Consumer / B2C", "Business / B2B", "Both consumer and business",
+                "Public sector", "Community / non-profit", "Not sure",
+            ]),
+            new("age_group", 6, "What age group best describes the main audience?",
+            [
+                "Under 18", "18–24", "25–34", "35–44", "45–54", "55–64", "65+",
+                "Broad adult audience", "Family / household audience",
+                "No specific age group",
+            ]),
+        ]),
+
+        new("Profile", [
+            new("gender", 7, "What gender profile best describes the audience?",
+            [
+                "All genders equally", "Mostly female", "Mostly male",
+                "Skews female but includes all", "Skews male but includes all",
+                "Not relevant",
+            ]),
+            new("life_stage", 8, "What life stage best describes the audience?",
+            [
+                "Students", "Young professionals", "Singles",
+                "Couples without children", "New parents",
+                "Parents with young children", "Parents with teenagers",
+                "Established families", "First-time buyers", "Homeowners",
+                "Renters", "Empty nesters", "Retirees", "Business owners",
+                "Senior professionals", "Not life-stage specific",
+            ]),
+            new("income", 9, "What income or spending profile best describes them?",
+            [
+                "Budget-conscious", "Value-seeking", "Mainstream / mass market",
+                "Mid-market", "Affluent", "High-net-worth", "Premium / luxury buyer",
+                "Business budget holder", "Not income-specific", "Not sure",
+            ]),
+        ]),
+
+        new("Location", [
+            new("location", 10, "Where should the campaign run?",
+            [
+                "National", "Specific region", "Specific county / counties",
+                "Specific city / cities", "Specific towns",
+                "Within a radius of store locations", "Near event locations",
+                "Near competitor locations", "Online-only, any location",
+                "International", "Not sure",
+            ]),
+            new("locations_count", 11, "Are there physical locations the campaign should support?",
+            [
+                "No physical location", "One location", "2–5 locations",
+                "6–20 locations", "20+ locations", "Franchise / dealer network",
+                "Pop-up or temporary location", "Event venue", "Retail stockists",
+                "Not sure",
+            ]),
+            new("motivation", 12, "What is the main customer motivation?",
+            [
+                "Save money", "Save time", "Convenience", "Quality",
+                "Trust / reliability", "Expertise", "Health / wellbeing",
+                "Status / prestige", "Entertainment", "Family / security",
+                "Local support", "Sustainability", "Business growth",
+                "Compliance / risk reduction", "Career progression", "Not sure",
+            ]),
+        ]),
+
+        new("Budget", [
+            new("barrier", 13, "What is the main barrier to purchase?",
+            [
+                "Price", "Lack of awareness", "Lack of trust", "Too complicated",
+                "No urgency", "Competitor loyalty", "Location / access",
+                "Time required", "Need approval from others", "Product availability",
+                "Fear of switching", "Not sure",
+            ]),
+            new("first_party_data", 14, "What first-party data is available?",
+            [
+                "Customer email list", "CRM database", "Past purchasers",
+                "Website visitors", "Cart abandoners", "App users",
+                "Loyalty programme", "Previous leads / enquiries",
+                "Store visitors", "Event attendees", "None", "Not sure",
+            ]),
+            new("budget", 15, "What is the approximate media budget?",
+            [
+                "Under €1,000", "€1,000–€5,000", "€5,000–€10,000",
+                "€10,000–€25,000", "€25,000–€50,000", "€50,000–€100,000",
+                "€100,000+", "Not confirmed yet",
+            ]),
+        ]),
+    ];
+
+    private static readonly Question[] AllQuestions =
+        Groups.SelectMany(g => g.Questions).ToArray();
+
+    private Dictionary<string, string> responses =
+        Groups.SelectMany(g => g.Questions).ToDictionary(q => q.Id, _ => "");
+
+    private int currentStep;
+    private bool submitted;
+
+    private Group CurrentGroup => Groups[currentStep];
+    private int ProgressPercent => (currentStep * 100) / Groups.Length;
+
+    private void Next() { if (currentStep < Groups.Length - 1) currentStep++; }
+    private void Back() { if (currentStep > 0) currentStep--; }
+    private void Submit() => submitted = true;
+
+    private void Reset()
+    {
+        responses = Groups.SelectMany(g => g.Questions).ToDictionary(q => q.Id, _ => "");
+        currentStep = 0;
+        submitted = false;
+    }
+}

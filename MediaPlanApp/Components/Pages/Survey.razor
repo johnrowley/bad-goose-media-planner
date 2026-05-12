@@ -1,0 +1,307 @@
+@page "/survey"
+@rendermode InteractiveServer
+
+<PageTitle>Media Plan Survey</PageTitle>
+
+<h1>Media Plan Survey</h1>
+<p class="text-muted">Answer the questions below to receive a personalised media plan recommendation.</p>
+
+@if (submitted)
+{
+    <div class="card mt-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Your Responses</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                @foreach (var q in Questions)
+                {
+                    var answer = responses[q.Id];
+                    if (!string.IsNullOrEmpty(answer))
+                    {
+                        <dt class="col-sm-6">@q.Text</dt>
+                        <dd class="col-sm-6">@answer</dd>
+                    }
+                }
+            </dl>
+            <button class="btn btn-outline-secondary" @onclick="Reset">Start Again</button>
+        </div>
+    </div>
+}
+else
+{
+    <EditForm Model="responses" OnValidSubmit="Submit" class="mt-4">
+        @foreach (var q in Questions)
+        {
+            <div class="mb-4">
+                <label class="form-label fw-semibold">@q.Number. @q.Text</label>
+                <select class="form-select" @bind="responses[q.Id]">
+                    <option value="">— Select an option —</option>
+                    @foreach (var opt in q.Options)
+                    {
+                        <option value="@opt">@opt</option>
+                    }
+                </select>
+            </div>
+        }
+
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </EditForm>
+}
+
+@code {
+    private record Question(string Id, int Number, string Text, string[] Options);
+
+    private static readonly Question[] Questions =
+    [
+        new("objective", 1, "What is the main campaign objective?",
+        [
+            "Build brand awareness",
+            "Launch a new product or service",
+            "Generate leads or enquiries",
+            "Drive online sales",
+            "Drive store visits / footfall",
+            "Increase bookings or appointments",
+            "Promote an event",
+            "Grow market share",
+            "Retain existing customers",
+            "Win back lapsed customers",
+            "Recruit staff",
+            "Change brand perception",
+            "Full-funnel campaign",
+        ]),
+
+        new("success_measure", 2, "What is the primary measure of success?",
+        [
+            "Reach / awareness",
+            "Brand recall",
+            "Website visits",
+            "Leads / enquiries",
+            "Phone calls",
+            "Online sales",
+            "Store visits / footfall",
+            "In-store sales",
+            "Bookings / appointments",
+            "App installs",
+            "Event attendance",
+            "Return on ad spend",
+            "Cost per lead",
+            "Cost per acquisition",
+            "Not sure",
+        ]),
+
+        new("promoting", 3, "What are you promoting?",
+        [
+            "Everyday consumer product",
+            "Premium / luxury product",
+            "Local service",
+            "Professional service",
+            "Financial product",
+            "Health / wellness product",
+            "Food / drink",
+            "Retail / e-commerce",
+            "Property / home improvement",
+            "Automotive",
+            "Travel / leisure",
+            "Education / training",
+            "Entertainment / event",
+            "B2B product or service",
+            "Recruitment / employer brand",
+            "Public information campaign",
+            "Other",
+        ]),
+
+        new("audience", 4, "Who is the primary audience?",
+        [
+            "New customers",
+            "Existing customers",
+            "Lapsed customers",
+            "Competitor customers",
+            "Website visitors",
+            "Previous enquirers / leads",
+            "High-value customers",
+            "Local residents",
+            "Tourists / visitors",
+            "Parents",
+            "Students",
+            "Homeowners",
+            "Renters",
+            "Business decision-makers",
+            "Employees / job seekers",
+            "General public",
+            "Not sure",
+        ]),
+
+        new("b2b_b2c", 5, "Is this mainly a consumer or business audience?",
+        [
+            "Consumer / B2C",
+            "Business / B2B",
+            "Both consumer and business",
+            "Public sector",
+            "Community / non-profit",
+            "Not sure",
+        ]),
+
+        new("age_group", 6, "What age group best describes the main audience?",
+        [
+            "Under 18",
+            "18–24",
+            "25–34",
+            "35–44",
+            "45–54",
+            "55–64",
+            "65+",
+            "Broad adult audience",
+            "Family / household audience",
+            "No specific age group",
+        ]),
+
+        new("gender", 7, "What gender profile best describes the audience?",
+        [
+            "All genders equally",
+            "Mostly female",
+            "Mostly male",
+            "Skews female but includes all",
+            "Skews male but includes all",
+            "Not relevant",
+        ]),
+
+        new("life_stage", 8, "What life stage best describes the audience?",
+        [
+            "Students",
+            "Young professionals",
+            "Singles",
+            "Couples without children",
+            "New parents",
+            "Parents with young children",
+            "Parents with teenagers",
+            "Established families",
+            "First-time buyers",
+            "Homeowners",
+            "Renters",
+            "Empty nesters",
+            "Retirees",
+            "Business owners",
+            "Senior professionals",
+            "Not life-stage specific",
+        ]),
+
+        new("income", 9, "What income or spending profile best describes them?",
+        [
+            "Budget-conscious",
+            "Value-seeking",
+            "Mainstream / mass market",
+            "Mid-market",
+            "Affluent",
+            "High-net-worth",
+            "Premium / luxury buyer",
+            "Business budget holder",
+            "Not income-specific",
+            "Not sure",
+        ]),
+
+        new("location", 10, "Where should the campaign run?",
+        [
+            "National",
+            "Specific region",
+            "Specific county / counties",
+            "Specific city / cities",
+            "Specific towns",
+            "Within a radius of store locations",
+            "Near event locations",
+            "Near competitor locations",
+            "Online-only, any location",
+            "International",
+            "Not sure",
+        ]),
+
+        new("locations_count", 11, "Are there physical locations the campaign should support?",
+        [
+            "No physical location",
+            "One location",
+            "2–5 locations",
+            "6–20 locations",
+            "20+ locations",
+            "Franchise / dealer network",
+            "Pop-up or temporary location",
+            "Event venue",
+            "Retail stockists",
+            "Not sure",
+        ]),
+
+        new("motivation", 12, "What is the main customer motivation?",
+        [
+            "Save money",
+            "Save time",
+            "Convenience",
+            "Quality",
+            "Trust / reliability",
+            "Expertise",
+            "Health / wellbeing",
+            "Status / prestige",
+            "Entertainment",
+            "Family / security",
+            "Local support",
+            "Sustainability",
+            "Business growth",
+            "Compliance / risk reduction",
+            "Career progression",
+            "Not sure",
+        ]),
+
+        new("barrier", 13, "What is the main barrier to purchase?",
+        [
+            "Price",
+            "Lack of awareness",
+            "Lack of trust",
+            "Too complicated",
+            "No urgency",
+            "Competitor loyalty",
+            "Location / access",
+            "Time required",
+            "Need approval from others",
+            "Product availability",
+            "Fear of switching",
+            "Not sure",
+        ]),
+
+        new("first_party_data", 14, "What first-party data is available?",
+        [
+            "Customer email list",
+            "CRM database",
+            "Past purchasers",
+            "Website visitors",
+            "Cart abandoners",
+            "App users",
+            "Loyalty programme",
+            "Previous leads / enquiries",
+            "Store visitors",
+            "Event attendees",
+            "None",
+            "Not sure",
+        ]),
+
+        new("budget", 15, "What is the approximate media budget?",
+        [
+            "Under €1,000",
+            "€1,000–€5,000",
+            "€5,000–€10,000",
+            "€10,000–€25,000",
+            "€25,000–€50,000",
+            "€50,000–€100,000",
+            "€100,000+",
+            "Not confirmed yet",
+        ]),
+    ];
+
+    private Dictionary<string, string> responses = Questions.ToDictionary(q => q.Id, _ => "");
+    private bool submitted;
+
+    private void Submit() => submitted = true;
+
+    private void Reset()
+    {
+        responses = Questions.ToDictionary(q => q.Id, _ => "");
+        submitted = false;
+    }
+}

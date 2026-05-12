@@ -2,11 +2,9 @@ namespace MediaPlanApp.Services;
 
 public class GoogleSheetsService(HttpClient httpClient)
 {
-    private const string SpreadsheetId = "1ejHCx4UsT6ZodKtH-ruNI1jEUxbR6uwoQIt8jP-LDig";
-
-    public async Task<List<List<string>>> GetSheetDataAsync(int rowCount = 3, int columnCount = 3)
+    public async Task<List<List<string>>> GetSheetDataAsync(string spreadsheetId, string gid, int rowCount = 3, int columnCount = 3)
     {
-        var url = $"https://docs.google.com/spreadsheets/d/{SpreadsheetId}/export?format=csv&gid=0";
+        var url = $"https://docs.google.com/spreadsheets/d/{spreadsheetId}/export?format=csv&gid={gid}";
         var csv = await httpClient.GetStringAsync(url);
 
         var result = new List<List<string>>();
@@ -26,9 +24,9 @@ public class GoogleSheetsService(HttpClient httpClient)
         return result;
     }
 
-    public async Task<string> GetNamedRangeValueAsync(string rangeName)
+    public async Task<string> GetNamedRangeValueAsync(string spreadsheetId, string rangeName)
     {
-        var url = $"https://docs.google.com/spreadsheets/d/{SpreadsheetId}/export?format=csv&range={rangeName}";
+        var url = $"https://docs.google.com/spreadsheets/d/{spreadsheetId}/export?format=csv&range={rangeName}";
         var csv = await httpClient.GetStringAsync(url);
         var cells = ParseCsvLine(csv.Trim());
         return cells.Count > 0 ? cells[0] : string.Empty;

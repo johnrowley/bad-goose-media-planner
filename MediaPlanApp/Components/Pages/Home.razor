@@ -1,114 +1,24 @@
 @page "/"
-@rendermode InteractiveServer
-@inject GoogleSheetsService SheetsService
-@inject IJSRuntime JS
+@inject IConfiguration Config
 
 <PageTitle>Media Plan</PageTitle>
 
 <h1>Media Plan</h1>
 
-@if (isLoading)
-{
-    <p>Loading spreadsheet data...</p>
-}
-else if (errorMessage is not null)
-{
-    <div class="alert alert-danger">
-        <strong>Error:</strong> @errorMessage
-    </div>
-}
-else
-{
-    @if (rows is not null && rows.Count > 0)
+<p>Select a client from the sidebar to view their report.</p>
+
+<ul>
+    @foreach (var client in clients)
     {
-        <table class="table table-bordered table-striped">
-            <tbody>
-                @foreach (var row in rows)
-                {
-                    <tr>
-                        @foreach (var cell in row)
-                        {
-                            <td>@cell</td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <li><a href="report/@client.Slug">@client.Name</a></li>
     }
-
-    <dl class="row mt-3">
-        @foreach (var entry in namedValues)
-        {
-            <dt class="col-sm-3">@entry.Label</dt>
-            <dd class="col-sm-9">@entry.Value</dd>
-        }
-    </dl>
-
-    <div class="mt-4" style="max-width: 500px;">
-        <canvas id="spendChart"></canvas>
-    </div>
-}
+</ul>
 
 @code {
-    private record NamedValue(string Label, string Value);
+    private List<ClientConfig> clients = [];
 
-    private static readonly (string Label, string RangeName)[] Entries =
-    [
-        ("FaceBook Spend",        "SOCIAL_FACEBOOK"),
-        ("RTE",                   "TV_RTE"),
-        ("Virgin Media",          "TV_VirginMedia"),
-        ("Sky Media",             "TV_SkyMedia"),
-        ("RTE Player",            "VOD_RTE_PLAYER"),
-        ("Virgin Media Player",   "VOD_VIRGIN_MEDIA_PLAYER"),
-    ];
-
-    private List<List<string>>? rows;
-    private List<NamedValue> namedValues = [];
-    private bool isLoading = true;
-    private string? errorMessage;
-
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        try
-        {
-            var rowsTask = SheetsService.GetSheetDataAsync(rowCount: 3, columnCount: 3);
-            var valueTasks = Entries.Select(e => SheetsService.GetNamedRangeValueAsync(e.RangeName)).ToArray();
-
-            await Task.WhenAll([rowsTask, .. valueTasks]);
-
-            rows = rowsTask.Result;
-            namedValues = Entries.Zip(valueTasks, (e, t) => new NamedValue(e.Label, t.Result)).ToList();
-        }
-        catch (Exception ex)
-        {
-            errorMessage = ex.Message;
-        }
-        finally
-        {
-            isLoading = false;
-        }
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (isLoading || namedValues.Count == 0) return;
-
-        static double? TryParseValue(string raw)
-        {
-            var cleaned = raw.Replace("€", "").Replace(",", "").Trim();
-            return double.TryParse(cleaned, out var v) ? v : null;
-        }
-
-        var chartEntries = namedValues
-            .Select(e => (e.Label, Parsed: TryParseValue(e.Value)))
-            .Where(e => e.Parsed is > 0)
-            .ToList();
-
-        if (chartEntries.Count == 0) return;
-
-        var labels = chartEntries.Select(e => e.Label).ToArray();
-        var values = chartEntries.Select(e => e.Parsed!.Value).ToArray();
-
-        await JS.InvokeVoidAsync("renderSpendChart", "spendChart", labels, values);
+        clients = Config.GetSection("Clients").Get<List<ClientConfig>>() ?? [];
     }
 }

@@ -84,3 +84,4 @@
 /Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp/obj/Debug/net10.0/MediaPlanApp.genruntimeconfig.cache
 /Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp/obj/Debug/net10.0/ref/MediaPlanApp.dll
 /Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp/obj/Debug/net10.0/compressed/rwvv2j6d3z-{0}-c1pq0kee2j-c1pq0kee2j.gz
+/Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp/obj/Debug/net10.0/MediaPlanApp.sourcelink.json
