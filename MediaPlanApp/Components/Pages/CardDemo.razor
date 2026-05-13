@@ -4,24 +4,7 @@
 
 <h1>Media Plan</h1>
 
-<div class="card-demo-grid">
-    @foreach (var channel in channels)
-    {
-        <TelerikCard Width="280px">
-            <CardHeader>
-                <CardTitle>@channel.Name</CardTitle>
-                <CardSubTitle>@channel.Category</CardSubTitle>
-            </CardHeader>
-            <CardBody>
-                <p>@channel.Description</p>
-            </CardBody>
-            <CardSeparator />
-            <CardFooter>
-                <span class="card-metric">Monthly Budget: <strong>@channel.Budget.ToString("C0")</strong></span>
-            </CardFooter>
-        </TelerikCard>
-    }
-</div>
+<ChannelCards Channels="@CardItems" />
 
 <h2 class="mt-5 mb-3">Budget Distribution</h2>
 
@@ -40,33 +23,22 @@
     </ChartSeriesItems>
 </TelerikChart>
 
-<style>
-    .card-demo-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        padding: 1rem 0;
-    }
-
-    .card-metric {
-        font-size: 0.9rem;
-        color: #555;
-    }
-</style>
-
 @code {
     private record MediaChannel(string Name, string Category, string Description, decimal Budget);
     private record ChartPoint(string Label, double Value);
 
     private List<MediaChannel> channels =
     [
-        new("RTE One", "Television", "Prime-time national TV reach across all demographics.", 45000m),
-        new("Today FM", "Radio", "High-frequency breakfast and drive-time slots.", 18500m),
-        new("Irish Times", "Print / Digital", "Full-page and digital display in Ireland's paper of record.", 22000m),
-        new("YouTube Pre-roll", "Digital Video", "Skippable 15–30 second spots targeting 25–44 age group.", 12000m),
-        new("Meta Ads", "Social Media", "Carousel and story placements across Facebook and Instagram.", 9500m),
-        new("Outdoor / OOH", "Out of Home", "48-sheet and 6-sheet panels in Dublin city and suburbs.", 31000m),
+        new("RTE One",          "Television",    "Prime-time national TV reach across all demographics.",               45000m),
+        new("Today FM",         "Radio",         "High-frequency breakfast and drive-time slots.",                      18500m),
+        new("Irish Times",      "Print / Digital","Full-page and digital display in Ireland's paper of record.",        22000m),
+        new("YouTube Pre-roll", "Digital Video", "Skippable 15–30 second spots targeting 25–44 age group.",            12000m),
+        new("Meta Ads",         "Social Media",  "Carousel and story placements across Facebook and Instagram.",         9500m),
+        new("Outdoor / OOH",    "Out of Home",   "48-sheet and 6-sheet panels in Dublin city and suburbs.",            31000m),
     ];
+
+    private IEnumerable<ChannelCardItem> CardItems =>
+        channels.Select(c => new ChannelCardItem(c.Name, c.Category, c.Budget, c.Description));
 
     private IEnumerable<ChartPoint> ChartData =>
         channels.Select(c => new ChartPoint(c.Name, (double)c.Budget));

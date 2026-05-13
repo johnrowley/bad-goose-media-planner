@@ -10,6 +10,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddHttpClient<GoogleSheetsService>();
 builder.Services.AddTelerikBlazor();
+builder.Services.AddScoped<MediaPlanStateService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

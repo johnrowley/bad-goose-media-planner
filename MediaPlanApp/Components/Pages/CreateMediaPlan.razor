@@ -1,0 +1,137 @@
+@page "/create-media-plan"
+@inject MediaPlanStateService PlanState
+@inject NavigationManager Nav
+
+<PageTitle>Create Media Plan</PageTitle>
+
+<h1>Create Media Plan</h1>
+
+<div class="plan-form">
+
+    <div class="mb-4">
+        <label class="form-label fw-semibold">Plan Name</label>
+        <TelerikTextBox @bind-Value="planName" Placeholder="e.g. Q3 Brand Campaign" Width="360px" />
+    </div>
+
+    <div class="mb-4">
+        <label class="form-label fw-semibold">Primary Audience</label>
+        <TelerikDropDownList Data="@AudienceOptions"
+                             @bind-Value="selectedAudience"
+                             DefaultText="— Select an audience —"
+                             Width="360px" />
+    </div>
+
+    <h5 class="mb-3">Select Channels &amp; Set Budgets</h5>
+
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th style="width:50px"></th>
+                <th>Channel</th>
+                <th>Category</th>
+                <th style="width:200px">Budget</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in planEntries)
+            {
+                <tr class="@(entry.Selected ? "table-primary" : "")">
+                    <td>
+                        <TelerikCheckBox @bind-Value="entry.Selected" />
+                    </td>
+                    <td class="fw-semibold">@entry.Channel.Name</td>
+                    <td class="text-muted">@entry.Channel.Category</td>
+                    <td>
+                        <TelerikNumericTextBox @bind-Value="entry.Budget"
+                                              Format="C0"
+                                              Min="0"
+                                              Enabled="@entry.Selected"
+                                              Width="160px" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="fw-bold">
+                <td colspan="3" class="text-end">Total Budget</td>
+                <td>@TotalBudget.ToString("C0")</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="mt-3 d-flex gap-2">
+        <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
+                       OnClick="SavePlan">
+            Save Plan
+        </TelerikButton>
+        <TelerikButton OnClick="Reset">
+            Reset
+        </TelerikButton>
+    </div>
+
+</div>
+
+<style>
+    .plan-form {
+        max-width: 800px;
+    }
+</style>
+
+@code {
+    private record MediaChannel(string Name, string Category);
+
+    private class PlanEntry
+    {
+        public MediaChannel Channel { get; init; } = default!;
+        public bool Selected { get; set; }
+        public decimal Budget { get; set; }
+    }
+
+    private static readonly List<MediaChannel> Channels =
+    [
+        new("RTE One",         "Television"),
+        new("Today FM",        "Radio"),
+        new("Irish Times",     "Print / Digital"),
+        new("YouTube Pre-roll","Digital Video"),
+        new("Meta Ads",        "Social Media"),
+        new("Outdoor / OOH",   "Out of Home"),
+    ];
+
+    private static readonly List<string> AudienceOptions =
+    [
+        "New customers", "Existing customers", "Lapsed customers",
+        "Competitor customers", "Website visitors", "Previous enquirers / leads",
+        "High-value customers", "Local residents", "Tourists / visitors",
+        "Parents", "Students", "Homeowners", "Renters",
+        "Business decision-makers", "Employees / job seekers",
+        "General public", "Not sure",
+    ];
+
+    private string planName = string.Empty;
+    private string selectedAudience = string.Empty;
+
+    private List<PlanEntry> planEntries = Channels
+        .Select(c => new PlanEntry { Channel = c })
+        .ToList();
+
+    private IEnumerable<PlanEntry> SelectedEntries => planEntries.Where(e => e.Selected);
+    private decimal TotalBudget => SelectedEntries.Sum(e => e.Budget);
+
+    private void SavePlan()
+    {
+        if (string.IsNullOrWhiteSpace(planName) || !SelectedEntries.Any()) return;
+        PlanState.PlanName = planName;
+        PlanState.Audience = selectedAudience;
+        PlanState.Channels = SelectedEntries
+            .Select(e => new ChannelCardItem(e.Channel.Name, e.Channel.Category, e.Budget))
+            .ToList();
+        Nav.NavigateTo("/media-plan-view");
+    }
+
+    private void Reset()
+    {
+        planName = string.Empty;
+        selectedAudience = string.Empty;
+        planEntries = Channels.Select(c => new PlanEntry { Channel = c }).ToList();
+    }
+}
