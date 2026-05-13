@@ -28,7 +28,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Add Telerik NuGet credentials
-        run: dotnet nuget update source telerik --username '${{ secrets.TELERIK_USERNAME }}' --password '${{ secrets.TELERIK_PASSWORD }}' --store-password-in-clear-text
+        run: dotnet nuget update source telerik --username 'api-key' --password '${{ secrets.TELERIK_NUGET_KEY }}' --store-password-in-clear-text
 
       - name: Write Telerik license
         run: echo '${{ secrets.TELERIK_LICENSE }}' > telerik-license.txt
