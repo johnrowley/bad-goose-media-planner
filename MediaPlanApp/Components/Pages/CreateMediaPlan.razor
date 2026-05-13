@@ -43,7 +43,7 @@
                     <td class="text-muted">@entry.Channel.Category</td>
                     <td>
                         <TelerikNumericTextBox @bind-Value="entry.Budget"
-                                              Format="C0"
+                                              Format="€#,##0"
                                               Min="0"
                                               Enabled="@entry.Selected"
                                               Width="160px" />
@@ -54,7 +54,7 @@
         <tfoot>
             <tr class="fw-bold">
                 <td colspan="3" class="text-end">Total Budget</td>
-                <td>@TotalBudget.ToString("C0")</td>
+                <td>€@TotalBudget.ToString("N0")</td>
             </tr>
         </tfoot>
     </table>
@@ -107,12 +107,27 @@
         "General public", "Not sure",
     ];
 
-    private string planName = string.Empty;
+    private string planName = "Q3 Brand Awareness Campaign";
     private string selectedAudience = string.Empty;
+    private List<PlanEntry> planEntries = [];
 
-    private List<PlanEntry> planEntries = Channels
-        .Select(c => new PlanEntry { Channel = c })
-        .ToList();
+    protected override void OnInitialized()
+    {
+        if (PlanState.HasPlan)
+        {
+            planName = PlanState.PlanName;
+            selectedAudience = PlanState.Audience;
+            planEntries = Channels.Select(c =>
+            {
+                var saved = PlanState.Channels.FirstOrDefault(s => s.Name == c.Name);
+                return new PlanEntry { Channel = c, Selected = saved != null, Budget = saved?.Budget ?? 0 };
+            }).ToList();
+        }
+        else
+        {
+            planEntries = Channels.Select(c => new PlanEntry { Channel = c }).ToList();
+        }
+    }
 
     private IEnumerable<PlanEntry> SelectedEntries => planEntries.Where(e => e.Selected);
     private decimal TotalBudget => SelectedEntries.Sum(e => e.Budget);
@@ -130,7 +145,7 @@
 
     private void Reset()
     {
-        planName = string.Empty;
+        planName = "Q3 Brand Awareness Campaign";
         selectedAudience = string.Empty;
         planEntries = Channels.Select(c => new PlanEntry { Channel = c }).ToList();
     }

@@ -43,14 +43,14 @@ else
                          Field="@nameof(ChartPoint.Value)"
                          CategoryField="@nameof(ChartPoint.Label)">
                 <ChartSeriesLabels Visible="true"
-                                   Format="{0:C0}"
+                                   Format="€{0:N0}"
                                    Position="ChartSeriesLabelsPosition.OutsideEnd" />
             </ChartSeries>
         </ChartSeriesItems>
     </TelerikChart>
 
     <p class="mt-3 fw-bold">
-        Total Budget: @PlanState.Channels.Sum(c => c.Budget).ToString("C0")
+        Total Budget: €@PlanState.Channels.Sum(c => c.Budget).ToString("N0")
     </p>
 }
 
