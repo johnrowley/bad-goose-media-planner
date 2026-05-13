@@ -23,6 +23,23 @@
     }
 </div>
 
+<h2 class="mt-5 mb-3">Budget Distribution</h2>
+
+<TelerikChart Height="420px">
+    <ChartTitle Text="Monthly Budget by Channel" />
+    <ChartLegend Position="ChartLegendPosition.Right" />
+    <ChartSeriesItems>
+        <ChartSeries Type="ChartSeriesType.Pie"
+                     Data="@ChartData"
+                     Field="@nameof(ChartPoint.Value)"
+                     CategoryField="@nameof(ChartPoint.Label)">
+            <ChartSeriesLabels Visible="true"
+                               Format="{0:C0}"
+                               Position="ChartSeriesLabelsPosition.OutsideEnd" />
+        </ChartSeries>
+    </ChartSeriesItems>
+</TelerikChart>
+
 <style>
     .card-demo-grid {
         display: flex;
@@ -39,6 +56,7 @@
 
 @code {
     private record MediaChannel(string Name, string Category, string Description, decimal Budget);
+    private record ChartPoint(string Label, double Value);
 
     private List<MediaChannel> channels =
     [
@@ -49,4 +67,7 @@
         new("Meta Ads", "Social Media", "Carousel and story placements across Facebook and Instagram.", 9500m),
         new("Outdoor / OOH", "Out of Home", "48-sheet and 6-sheet panels in Dublin city and suburbs.", 31000m),
     ];
+
+    private IEnumerable<ChartPoint> ChartData =>
+        channels.Select(c => new ChartPoint(c.Name, (double)c.Budget));
 }
