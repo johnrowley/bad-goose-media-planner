@@ -1,0 +1,128 @@
+@page "/spread-xml"
+@using System.IO.Compression
+@using System.Text
+@using System.Text.Json
+@inject IWebHostEnvironment Env
+
+<PageTitle>Spreadsheet XML Demo</PageTitle>
+
+@if (errorMessage is not null)
+{
+    <p style="color:red">Error: @errorMessage</p>
+}
+else if (SpreadsheetData is not null)
+{
+    <TelerikSpreadsheet Data="@SpreadsheetData" Height="600px" Width="100%">
+    </TelerikSpreadsheet>
+}
+else
+{
+    <p>Loading spreadsheet data...</p>
+}
+
+@code {
+    private byte[]? SpreadsheetData { get; set; }
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            SpreadsheetData = await Task.Run(BuildSpreadsheet);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+
+    private byte[] BuildSpreadsheet()
+    {
+        var jsonPath = Path.Combine(Env.WebRootPath, "data", "media-budget.json");
+        var rows = JsonSerializer.Deserialize<List<Dictionary<string, JsonElement>>>(
+            System.IO.File.ReadAllText(jsonPath))!;
+        var headers = rows[0].Keys.ToList();
+
+        using var stream = new MemoryStream();
+        using (var zip = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
+        {
+            Write(zip, "[Content_Types].xml", @"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<Types xmlns=""http://schemas.openxmlformats.org/package/2006/content-types"">
+  <Default Extension=""rels"" ContentType=""application/vnd.openxmlformats-package.relationships+xml""/>
+  <Default Extension=""xml"" ContentType=""application/xml""/>
+  <Override PartName=""/xl/workbook.xml"" ContentType=""application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml""/>
+  <Override PartName=""/xl/worksheets/sheet1.xml"" ContentType=""application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml""/>
+</Types>");
+
+            Write(zip, "_rels/.rels", @"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<Relationships xmlns=""http://schemas.openxmlformats.org/package/2006/relationships"">
+  <Relationship Id=""rId1"" Type=""http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument"" Target=""xl/workbook.xml""/>
+</Relationships>");
+
+            Write(zip, "xl/_rels/workbook.xml.rels", @"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<Relationships xmlns=""http://schemas.openxmlformats.org/package/2006/relationships"">
+  <Relationship Id=""rId1"" Type=""http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet"" Target=""worksheets/sheet1.xml""/>
+</Relationships>");
+
+            Write(zip, "xl/workbook.xml", @"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<workbook xmlns=""http://schemas.openxmlformats.org/spreadsheetml/2006/main"" xmlns:r=""http://schemas.openxmlformats.org/officeDocument/2006/relationships"">
+  <sheets>
+    <sheet name=""Media Budget"" sheetId=""1"" r:id=""rId1""/>
+  </sheets>
+</workbook>");
+
+            Write(zip, "xl/worksheets/sheet1.xml", BuildSheetXml(headers, rows));
+        }
+
+        return stream.ToArray();
+    }
+
+    private static string BuildSheetXml(List<string> headers, List<Dictionary<string, JsonElement>> rows)
+    {
+        var sb = new StringBuilder();
+        sb.Append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+        sb.Append("<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><sheetData>");
+
+        // Header row
+        sb.Append("<row r=\"1\">");
+        for (int col = 0; col < headers.Count; col++)
+            sb.Append($"<c r=\"{Col(col)}1\" t=\"inlineStr\"><is><t>{Esc(headers[col])}</t></is></c>");
+        sb.Append("</row>");
+
+        // Data rows
+        for (int r = 0; r < rows.Count; r++)
+        {
+            int rowNum = r + 2;
+            sb.Append($"<row r=\"{rowNum}\">");
+            for (int col = 0; col < headers.Count; col++)
+            {
+                var el = rows[r][headers[col]];
+                if (el.ValueKind == JsonValueKind.Number)
+                    sb.Append($"<c r=\"{Col(col)}{rowNum}\"><v>{el.GetDouble()}</v></c>");
+                else
+                    sb.Append($"<c r=\"{Col(col)}{rowNum}\" t=\"inlineStr\"><is><t>{Esc(el.GetString() ?? "")}</t></is></c>");
+            }
+            sb.Append("</row>");
+        }
+
+        sb.Append("</sheetData></worksheet>");
+        return sb.ToString();
+    }
+
+    private static void Write(ZipArchive zip, string path, string content)
+    {
+        using var writer = new StreamWriter(zip.CreateEntry(path).Open(), new UTF8Encoding(false));
+        writer.Write(content);
+    }
+
+    private static string Col(int i)
+    {
+        var name = string.Empty;
+        do { name = (char)('A' + i % 26) + name; i = i / 26 - 1; } while (i >= 0);
+        return name;
+    }
+
+    private static string Esc(string s) => s
+        .Replace("&", "&amp;").Replace("<", "&lt;")
+        .Replace(">", "&gt;").Replace("\"", "&quot;");
+}

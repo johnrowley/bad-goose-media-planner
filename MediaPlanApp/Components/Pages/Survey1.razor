@@ -1,5 +1,6 @@
 @page "/survey1"
 @rendermode InteractiveServer
+@inject NavigationManager Nav
 
 <PageTitle>Media Plan Survey</PageTitle>
 
@@ -302,7 +303,7 @@ else
 
     private void Next() { if (currentStep < Groups.Length - 1) currentStep++; }
     private void Back() { if (currentStep > 0) currentStep--; }
-    private void Submit() => submitted = true;
+    private void Submit() => Nav.NavigateTo("/card-demo");
 
     private void Reset()
     {

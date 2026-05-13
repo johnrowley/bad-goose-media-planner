@@ -13,6 +13,7 @@
     <SourceRoot Include="/Users/johnrowley/.nuget/packages/" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)telerik.ui.for.blazor/13.3.0/buildTransitive/Telerik.UI.for.Blazor.props" Condition="Exists('$(NuGetPackageRoot)telerik.ui.for.blazor/13.3.0/buildTransitive/Telerik.UI.for.Blazor.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.app.internal.assets/10.0.6/build/Microsoft.AspNetCore.App.Internal.Assets.props" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.app.internal.assets/10.0.6/build/Microsoft.AspNetCore.App.Internal.Assets.props')" />
   </ImportGroup>
 </Project>

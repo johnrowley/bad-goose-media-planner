@@ -2,6 +2,84 @@
   "version": 3,
   "targets": {
     "net10.0": {
+      "ClosedXML/0.105.0": {
+        "type": "package",
+        "dependencies": {
+          "ClosedXML.Parser": "2.0.0",
+          "DocumentFormat.OpenXml": "[3.1.1, 4.0.0)",
+          "ExcelNumberFormat": "1.1.0",
+          "RBush.Signed": "4.0.0",
+          "SixLabors.Fonts": "1.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/ClosedXML.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/ClosedXML.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "ClosedXML.Parser/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/ClosedXML.Parser.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/ClosedXML.Parser.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DocumentFormat.OpenXml/3.1.1": {
+        "type": "package",
+        "dependencies": {
+          "DocumentFormat.OpenXml.Framework": "3.1.1"
+        },
+        "compile": {
+          "lib/net8.0/DocumentFormat.OpenXml.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DocumentFormat.OpenXml.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DocumentFormat.OpenXml.Framework/3.1.1": {
+        "type": "package",
+        "dependencies": {
+          "System.IO.Packaging": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/DocumentFormat.OpenXml.Framework.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DocumentFormat.OpenXml.Framework.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "ExcelNumberFormat/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/ExcelNumberFormat.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/ExcelNumberFormat.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.App.Internal.Assets/10.0.6": {
         "type": "package",
         "build": {
@@ -11,10 +89,432 @@
         "buildMultiTargeting": {
           "buildMultiTargeting/Microsoft.AspNetCore.App.Internal.Assets.targets": {}
         }
+      },
+      "Microsoft.Extensions.AI/9.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "9.5.0"
+        },
+        "compile": {
+          "lib/net9.0/Microsoft.Extensions.AI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.AI.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Extensions.AI.Abstractions/9.5.0": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Microsoft.Extensions.AI.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.AI.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "RBush.Signed/4.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/RBush.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/RBush.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SixLabors.Fonts/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/SixLabors.Fonts.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/SixLabors.Fonts.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.IO.Packaging/8.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.IO.Packaging.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.IO.Packaging.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Security.Cryptography.Pkcs/9.0.9": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/System.Security.Cryptography.Pkcs.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/System.Security.Cryptography.Pkcs.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net9.0/System.Security.Cryptography.Pkcs.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "Telerik.AI.SmartComponents.Extensions/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.AI": "9.5.0"
+        },
+        "compile": {
+          "lib/net8.0/Telerik.AI.SmartComponents.Extensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Telerik.AI.SmartComponents.Extensions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Telerik.DataSource/4.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Telerik.DataSource.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Telerik.DataSource.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Telerik.Documents.Core/2026.1.402": {
+        "type": "package",
+        "dependencies": {
+          "Telerik.Licensing": "[1.8.2, 2.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Telerik.Documents.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Telerik.Documents.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Telerik.Documents.Fixed/2026.1.402": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.Cryptography.Pkcs": "9.0.9",
+          "Telerik.Documents.Core": "[2026.1.402]",
+          "Telerik.Licensing": "[1.8.2, 2.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Telerik.Documents.Fixed.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Telerik.Documents.Fixed.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Telerik.Documents.Spreadsheet/2026.1.402": {
+        "type": "package",
+        "dependencies": {
+          "Telerik.Documents.Core": "[2026.1.402]",
+          "Telerik.Licensing": "[1.8.2, 2.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Telerik.Documents.Spreadsheet.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Telerik.Documents.Spreadsheet.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Telerik.Documents.Spreadsheet.FormatProviders.Pdf/2026.1.402": {
+        "type": "package",
+        "dependencies": {
+          "Telerik.Documents.Core": "[2026.1.402]",
+          "Telerik.Documents.Fixed": "[2026.1.402]",
+          "Telerik.Documents.Spreadsheet": "[2026.1.402]",
+          "Telerik.Licensing": "[1.8.2, 2.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Telerik.Documents.Spreadsheet.FormatProviders.Pdf.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Telerik.Documents.Spreadsheet.FormatProviders.Pdf.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Telerik.Documents.SpreadsheetStreaming/2026.1.402": {
+        "type": "package",
+        "dependencies": {
+          "Telerik.Licensing": "[1.8.2, 2.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Telerik.Documents.SpreadsheetStreaming.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Telerik.Documents.SpreadsheetStreaming.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Telerik.FontIcons/4.8.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Telerik.FontIcons.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Telerik.FontIcons.dll": {}
+        }
+      },
+      "Telerik.Licensing/1.8.2": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/Telerik.Licensing.Runtime.dll": {
+            "related": ".deps.json"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Telerik.Licensing.Runtime.dll": {
+            "related": ".deps.json"
+          }
+        },
+        "build": {
+          "build/Telerik.Licensing.targets": {}
+        }
+      },
+      "Telerik.Pivot.Core/0.1.7": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/Telerik.Pivot.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Telerik.Pivot.Core.dll": {}
+        }
+      },
+      "Telerik.Pivot.DataProviders.Xmla/0.1.8": {
+        "type": "package",
+        "dependencies": {
+          "Telerik.Pivot.Core": "0.1.7"
+        },
+        "compile": {
+          "lib/netstandard2.1/Telerik.Pivot.DataProviders.Xmla.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Telerik.Pivot.DataProviders.Xmla.dll": {}
+        }
+      },
+      "Telerik.Recurrence/0.2.7": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Telerik.Recurrence.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Telerik.Recurrence.dll": {}
+        }
+      },
+      "Telerik.SvgIcons/4.8.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Telerik.SvgIcons.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Telerik.SvgIcons.dll": {}
+        }
+      },
+      "Telerik.UI.for.Blazor/13.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "9.5.0",
+          "Telerik.AI.SmartComponents.Extensions": "2.1.0",
+          "Telerik.DataSource": "4.0.1",
+          "Telerik.Documents.Spreadsheet": "2026.1.402",
+          "Telerik.Documents.Spreadsheet.FormatProviders.Pdf": "2026.1.402",
+          "Telerik.Documents.SpreadsheetStreaming": "2026.1.402",
+          "Telerik.FontIcons": "4.8.0",
+          "Telerik.Licensing": "[1.8.2, 2.0.0)",
+          "Telerik.Pivot.Core": "0.1.7",
+          "Telerik.Pivot.DataProviders.Xmla": "0.1.8",
+          "Telerik.Recurrence": "0.2.7",
+          "Telerik.SvgIcons": "4.8.0",
+          "Telerik.Zip": "2026.1.402"
+        },
+        "compile": {
+          "lib/net8.0/Telerik.Blazor.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Telerik.Blazor.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/Telerik.UI.for.Blazor.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Telerik.UI.for.Blazor.props": {}
+        }
+      },
+      "Telerik.Zip/2026.1.402": {
+        "type": "package",
+        "dependencies": {
+          "Telerik.Licensing": "[1.8.2, 2.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Telerik.Zip.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Telerik.Zip.dll": {
+            "related": ".xml"
+          }
+        }
       }
     }
   },
   "libraries": {
+    "ClosedXML/0.105.0": {
+      "sha512": "U0hAdnYyPvF7TqHMFloxrS7pmozab79tFFF4c/bgPtqeelUs7ILpUd3r3c7C0a/DXsUZb3k1n4Pf7Q2LMyMQOg==",
+      "type": "package",
+      "path": "closedxml/0.105.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "closedxml.0.105.0.nupkg.sha512",
+        "closedxml.nuspec",
+        "lib/netstandard2.0/ClosedXML.dll",
+        "lib/netstandard2.0/ClosedXML.pdb",
+        "lib/netstandard2.0/ClosedXML.xml",
+        "lib/netstandard2.1/ClosedXML.dll",
+        "lib/netstandard2.1/ClosedXML.pdb",
+        "lib/netstandard2.1/ClosedXML.xml",
+        "nuget-logo.png"
+      ]
+    },
+    "ClosedXML.Parser/2.0.0": {
+      "sha512": "ngTqjYreDYNytG1W5d3ewHsw0ukmmrgV7EKnS4/40rXoYZGt07jrBvo+N+GxT49rcageUMUiprV0jYT4nwVBHQ==",
+      "type": "package",
+      "path": "closedxml.parser/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "closedxml.parser.2.0.0.nupkg.sha512",
+        "closedxml.parser.nuspec",
+        "lib/netstandard2.0/ClosedXML.Parser.dll",
+        "lib/netstandard2.0/ClosedXML.Parser.xml",
+        "lib/netstandard2.1/ClosedXML.Parser.dll",
+        "lib/netstandard2.1/ClosedXML.Parser.xml"
+      ]
+    },
+    "DocumentFormat.OpenXml/3.1.1": {
+      "sha512": "2z9QBzeTLNNKWM9SaOSDMegfQk/7hDuElOsmF77pKZMkFRP/GHA/W/4yOAQD9kn15N/FsFxHn3QVYkatuZghiA==",
+      "type": "package",
+      "path": "documentformat.openxml/3.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "documentformat.openxml.3.1.1.nupkg.sha512",
+        "documentformat.openxml.nuspec",
+        "icon.png",
+        "lib/net35/DocumentFormat.OpenXml.dll",
+        "lib/net35/DocumentFormat.OpenXml.xml",
+        "lib/net40/DocumentFormat.OpenXml.dll",
+        "lib/net40/DocumentFormat.OpenXml.xml",
+        "lib/net46/DocumentFormat.OpenXml.dll",
+        "lib/net46/DocumentFormat.OpenXml.xml",
+        "lib/net8.0/DocumentFormat.OpenXml.dll",
+        "lib/net8.0/DocumentFormat.OpenXml.xml",
+        "lib/netstandard2.0/DocumentFormat.OpenXml.dll",
+        "lib/netstandard2.0/DocumentFormat.OpenXml.xml"
+      ]
+    },
+    "DocumentFormat.OpenXml.Framework/3.1.1": {
+      "sha512": "6APEp/ElZV58S/4v8mf4Ke3ONEDORs64MqdD64Z7wWpcHANB9oovQsGIwtqjnKihulOj7T0a6IxHIHOfMqKOng==",
+      "type": "package",
+      "path": "documentformat.openxml.framework/3.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "documentformat.openxml.framework.3.1.1.nupkg.sha512",
+        "documentformat.openxml.framework.nuspec",
+        "icon.png",
+        "lib/net35/DocumentFormat.OpenXml.Framework.dll",
+        "lib/net35/DocumentFormat.OpenXml.Framework.xml",
+        "lib/net40/DocumentFormat.OpenXml.Framework.dll",
+        "lib/net40/DocumentFormat.OpenXml.Framework.xml",
+        "lib/net46/DocumentFormat.OpenXml.Framework.dll",
+        "lib/net46/DocumentFormat.OpenXml.Framework.xml",
+        "lib/net6.0/DocumentFormat.OpenXml.Framework.dll",
+        "lib/net6.0/DocumentFormat.OpenXml.Framework.xml",
+        "lib/net8.0/DocumentFormat.OpenXml.Framework.dll",
+        "lib/net8.0/DocumentFormat.OpenXml.Framework.xml",
+        "lib/netstandard2.0/DocumentFormat.OpenXml.Framework.dll",
+        "lib/netstandard2.0/DocumentFormat.OpenXml.Framework.xml"
+      ]
+    },
+    "ExcelNumberFormat/1.1.0": {
+      "sha512": "R3BVHPs9O+RkExbZYTGT0+9HLbi8ZrNij1Yziyw6znd3J7P3uoIR07uwTLGOogtz1p6+0sna66eBoXu7tBiVQA==",
+      "type": "package",
+      "path": "excelnumberformat/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "excelnumberformat.1.1.0.nupkg.sha512",
+        "excelnumberformat.nuspec",
+        "icon.png",
+        "lib/net20/ExcelNumberFormat.dll",
+        "lib/net20/ExcelNumberFormat.xml",
+        "lib/netstandard1.0/ExcelNumberFormat.dll",
+        "lib/netstandard1.0/ExcelNumberFormat.xml",
+        "lib/netstandard2.0/ExcelNumberFormat.dll",
+        "lib/netstandard2.0/ExcelNumberFormat.xml"
+      ]
+    },
     "Microsoft.AspNetCore.App.Internal.Assets/10.0.6": {
       "sha512": "3jRLKtAXwSCVDX0vUmGTDwcbSmL05jtf5vUHB9QXpw3wDbT0qU0dUJyKAOKgvwW3j0FI+aHHMbKIZCM63SPkOA==",
       "type": "package",
@@ -37,11 +537,404 @@
         "microsoft.aspnetcore.app.internal.assets.10.0.6.nupkg.sha512",
         "microsoft.aspnetcore.app.internal.assets.nuspec"
       ]
+    },
+    "Microsoft.Extensions.AI/9.5.0": {
+      "sha512": "RBq/TspXI7UScO5+fHXIrnlDvX8pnvFcHWag3OPPivJgjqmI/RF70dpTPmMIly9dG+z+86kLP2KGkA2UiZ9tVQ==",
+      "type": "package",
+      "path": "microsoft.extensions.ai/9.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "README.md",
+        "lib/net462/Microsoft.Extensions.AI.dll",
+        "lib/net462/Microsoft.Extensions.AI.xml",
+        "lib/net8.0/Microsoft.Extensions.AI.dll",
+        "lib/net8.0/Microsoft.Extensions.AI.xml",
+        "lib/net9.0/Microsoft.Extensions.AI.dll",
+        "lib/net9.0/Microsoft.Extensions.AI.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.xml",
+        "microsoft.extensions.ai.9.5.0.nupkg.sha512",
+        "microsoft.extensions.ai.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.AI.Abstractions/9.5.0": {
+      "sha512": "Y46j1S4zOPtLAHCUzhHIm1IhCMr7764754bLYupyc1JZcvLNXjUk+VC7H3Bou20S2hHgDJnfox7X/H/3BYEvzA==",
+      "type": "package",
+      "path": "microsoft.extensions.ai.abstractions/9.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "README.md",
+        "lib/net462/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/net9.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net9.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "microsoft.extensions.ai.abstractions.9.5.0.nupkg.sha512",
+        "microsoft.extensions.ai.abstractions.nuspec"
+      ]
+    },
+    "RBush.Signed/4.0.0": {
+      "sha512": "aP5KQxL5RnFNGW1f0euYVBfCatkLw5iEzMRJcXKq8LWWP4Cp3+qoSq1tDDL2vvJ2rM0ychmVMa2VaEKLS6uX4w==",
+      "type": "package",
+      "path": "rbush.signed/4.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net47/RBush.dll",
+        "lib/net47/RBush.xml",
+        "lib/net8.0/RBush.dll",
+        "lib/net8.0/RBush.xml",
+        "lib/netstandard2.0/RBush.dll",
+        "lib/netstandard2.0/RBush.xml",
+        "rbush.signed.4.0.0.nupkg.sha512",
+        "rbush.signed.nuspec",
+        "readme.md"
+      ]
+    },
+    "SixLabors.Fonts/1.0.0": {
+      "sha512": "LFQsCZlV0xlUyXAOMUo5kkSl+8zAQXXbbdwWchtk0B4o7zotZhQsQOcJUELGHdfPfm/xDAsz6hONAuV25bJaAg==",
+      "type": "package",
+      "path": "sixlabors.fonts/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.1/SixLabors.Fonts.dll",
+        "lib/netcoreapp3.1/SixLabors.Fonts.xml",
+        "lib/netstandard2.0/SixLabors.Fonts.dll",
+        "lib/netstandard2.0/SixLabors.Fonts.xml",
+        "lib/netstandard2.1/SixLabors.Fonts.dll",
+        "lib/netstandard2.1/SixLabors.Fonts.xml",
+        "sixlabors.fonts.1.0.0.nupkg.sha512",
+        "sixlabors.fonts.128.png",
+        "sixlabors.fonts.nuspec"
+      ]
+    },
+    "System.IO.Packaging/8.0.1": {
+      "sha512": "KYkIOAvPexQOLDxPO2g0BVoWInnQhPpkFzRqvNrNrMhVT6kqhVr0zEb6KCHlptLFukxnZrjuMVAnxK7pOGUYrw==",
+      "type": "package",
+      "path": "system.io.packaging/8.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.IO.Packaging.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.IO.Packaging.targets",
+        "lib/net462/System.IO.Packaging.dll",
+        "lib/net462/System.IO.Packaging.xml",
+        "lib/net6.0/System.IO.Packaging.dll",
+        "lib/net6.0/System.IO.Packaging.xml",
+        "lib/net7.0/System.IO.Packaging.dll",
+        "lib/net7.0/System.IO.Packaging.xml",
+        "lib/net8.0/System.IO.Packaging.dll",
+        "lib/net8.0/System.IO.Packaging.xml",
+        "lib/netstandard2.0/System.IO.Packaging.dll",
+        "lib/netstandard2.0/System.IO.Packaging.xml",
+        "system.io.packaging.8.0.1.nupkg.sha512",
+        "system.io.packaging.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Security.Cryptography.Pkcs/9.0.9": {
+      "sha512": "Y7/wY5lqrzJOu53yLFLPGaeKBcdWNw193udOFRB2joFDVpXLkmfPpfgks7dEIJYPIrW4k3onwR+4nQz6vIaaqA==",
+      "type": "package",
+      "path": "system.security.cryptography.pkcs/9.0.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Security.Cryptography.Pkcs.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Security.Cryptography.Pkcs.targets",
+        "lib/net462/System.Security.Cryptography.Pkcs.dll",
+        "lib/net462/System.Security.Cryptography.Pkcs.xml",
+        "lib/net8.0/System.Security.Cryptography.Pkcs.dll",
+        "lib/net8.0/System.Security.Cryptography.Pkcs.xml",
+        "lib/net9.0/System.Security.Cryptography.Pkcs.dll",
+        "lib/net9.0/System.Security.Cryptography.Pkcs.xml",
+        "lib/netstandard2.0/System.Security.Cryptography.Pkcs.dll",
+        "lib/netstandard2.0/System.Security.Cryptography.Pkcs.xml",
+        "lib/netstandard2.1/System.Security.Cryptography.Pkcs.dll",
+        "lib/netstandard2.1/System.Security.Cryptography.Pkcs.xml",
+        "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll",
+        "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.xml",
+        "runtimes/win/lib/net9.0/System.Security.Cryptography.Pkcs.dll",
+        "runtimes/win/lib/net9.0/System.Security.Cryptography.Pkcs.xml",
+        "system.security.cryptography.pkcs.9.0.9.nupkg.sha512",
+        "system.security.cryptography.pkcs.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Telerik.AI.SmartComponents.Extensions/2.1.0": {
+      "sha512": "yuOYXSkQ3orgryqYki0kodCpkRCFqjxybWI4VG4YTeFN+uWOhkX8g1z8yncYzXQhwBKhVjrhHI16g0VV9zpUdQ==",
+      "type": "package",
+      "path": "telerik.ai.smartcomponents.extensions/2.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net8.0/Telerik.AI.SmartComponents.Extensions.dll",
+        "lib/net8.0/Telerik.AI.SmartComponents.Extensions.xml",
+        "telerik.ai.smartcomponents.extensions.2.1.0.nupkg.sha512",
+        "telerik.ai.smartcomponents.extensions.nuspec"
+      ]
+    },
+    "Telerik.DataSource/4.0.1": {
+      "sha512": "YhQc+uVcLYViURMzZClABE1T6FfOdJUjT6/Bc24OcHbmQSzaXTXN77q5fhPpvERXA4kJyLnzEfLR8I8nzrg/ZQ==",
+      "type": "package",
+      "path": "telerik.datasource/4.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net8.0/Telerik.DataSource.dll",
+        "lib/net8.0/Telerik.DataSource.xml",
+        "telerik.datasource.4.0.1.nupkg.sha512",
+        "telerik.datasource.nuspec"
+      ]
+    },
+    "Telerik.Documents.Core/2026.1.402": {
+      "sha512": "bpku6ZjPq0wRlzAXtFWQy/sUaTar4I5LRCnZvwG43afdgGyvJhwYhq6UKCsEyZUQjFqIhxmuLxiHK3kKpGbDLg==",
+      "type": "package",
+      "path": "telerik.documents.core/2026.1.402",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LicenseAgreements/EULA.txt",
+        "LicenseAgreements/ThirdParty/Progress Telerik Document Processing Libraries - notices.txt",
+        "images/tdp.png",
+        "lib/netstandard2.0/Telerik.Documents.Core.dll",
+        "lib/netstandard2.0/Telerik.Documents.Core.xml",
+        "telerik.documents.core.2026.1.402.nupkg.sha512",
+        "telerik.documents.core.nuspec"
+      ]
+    },
+    "Telerik.Documents.Fixed/2026.1.402": {
+      "sha512": "6dBxBW1RJOfCYxzpHkJ+ofoNfGXZAGgKyhDLX/59p2q75tjJFf/AJ4lXklkv38uznV2hwP6DC9hpEBhpRxsuvA==",
+      "type": "package",
+      "path": "telerik.documents.fixed/2026.1.402",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LicenseAgreements/EULA.txt",
+        "LicenseAgreements/ThirdParty/Progress Telerik Document Processing Libraries - notices.txt",
+        "images/tdp.png",
+        "lib/netstandard2.0/Telerik.Documents.Fixed.dll",
+        "lib/netstandard2.0/Telerik.Documents.Fixed.xml",
+        "telerik.documents.fixed.2026.1.402.nupkg.sha512",
+        "telerik.documents.fixed.nuspec"
+      ]
+    },
+    "Telerik.Documents.Spreadsheet/2026.1.402": {
+      "sha512": "A2trfHlLeCiL7xLsViIuzUKNDtpGNbGwikE7vPuia4J9qTcrc0uLpKE5JUkRrdF4k2OCi+FsWUYQOVCuqKc15A==",
+      "type": "package",
+      "path": "telerik.documents.spreadsheet/2026.1.402",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LicenseAgreements/EULA.txt",
+        "LicenseAgreements/ThirdParty/Progress Telerik Document Processing Libraries - notices.txt",
+        "images/tdp.png",
+        "lib/netstandard2.0/Telerik.Documents.Spreadsheet.dll",
+        "lib/netstandard2.0/Telerik.Documents.Spreadsheet.xml",
+        "telerik.documents.spreadsheet.2026.1.402.nupkg.sha512",
+        "telerik.documents.spreadsheet.nuspec"
+      ]
+    },
+    "Telerik.Documents.Spreadsheet.FormatProviders.Pdf/2026.1.402": {
+      "sha512": "hjOIdHeOcbrAGsN2m6OqcC8c64mO1D3Crd2nzPJ6VZ42Xq6+DCxVJmPB9H1MxC8vk1zaR1EmnmahhihvBH9eJg==",
+      "type": "package",
+      "path": "telerik.documents.spreadsheet.formatproviders.pdf/2026.1.402",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LicenseAgreements/EULA.txt",
+        "LicenseAgreements/ThirdParty/Progress Telerik Document Processing Libraries - notices.txt",
+        "images/tdp.png",
+        "lib/netstandard2.0/Telerik.Documents.Spreadsheet.FormatProviders.Pdf.dll",
+        "lib/netstandard2.0/Telerik.Documents.Spreadsheet.FormatProviders.Pdf.xml",
+        "telerik.documents.spreadsheet.formatproviders.pdf.2026.1.402.nupkg.sha512",
+        "telerik.documents.spreadsheet.formatproviders.pdf.nuspec"
+      ]
+    },
+    "Telerik.Documents.SpreadsheetStreaming/2026.1.402": {
+      "sha512": "7Jp+vNaXz3LE+jjJEuTqghJimtFF/vSDoqdg6eD7GIq9etZQyESEMlpvy5hxfDjxDBPBAXlK/zVPYXirVfuY1A==",
+      "type": "package",
+      "path": "telerik.documents.spreadsheetstreaming/2026.1.402",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LicenseAgreements/EULA.txt",
+        "LicenseAgreements/ThirdParty/Progress Telerik Document Processing Libraries - notices.txt",
+        "images/tdp.png",
+        "lib/netstandard2.0/Telerik.Documents.SpreadsheetStreaming.dll",
+        "lib/netstandard2.0/Telerik.Documents.SpreadsheetStreaming.xml",
+        "telerik.documents.spreadsheetstreaming.2026.1.402.nupkg.sha512",
+        "telerik.documents.spreadsheetstreaming.nuspec"
+      ]
+    },
+    "Telerik.FontIcons/4.8.0": {
+      "sha512": "p3sBv3NgyeMwASBzWaTLTFnAaTq24nKXz6ofBC9geqB8r6t6AafIQl3D4T8dtAcB2xqvfTTjAdQIb+sx060BrA==",
+      "type": "package",
+      "path": "telerik.fonticons/4.8.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/netstandard2.0/Telerik.FontIcons.dll",
+        "telerik.fonticons.4.8.0.nupkg.sha512",
+        "telerik.fonticons.nuspec"
+      ]
+    },
+    "Telerik.Licensing/1.8.2": {
+      "sha512": "+LEIcXj33e2eyzxAErLejUFI2OuKOCFt4GyGfusf+EH7/YITmBU0381eJVwKyF3ZGux9OSzzmu1oaUPG/NYhLQ==",
+      "type": "package",
+      "path": "telerik.licensing/1.8.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LicenseAgreements/EULA.txt",
+        "README.md",
+        "build/Telerik.Licensing.targets",
+        "images/progress-64x64.png",
+        "lib/net10.0/Telerik.Licensing.Runtime.deps.json",
+        "lib/net10.0/Telerik.Licensing.Runtime.dll",
+        "lib/net462/Telerik.Licensing.Runtime.dll",
+        "lib/net6.0/Telerik.Licensing.Runtime.deps.json",
+        "lib/net6.0/Telerik.Licensing.Runtime.dll",
+        "lib/net7.0/Telerik.Licensing.Runtime.deps.json",
+        "lib/net7.0/Telerik.Licensing.Runtime.dll",
+        "lib/net8.0/Telerik.Licensing.Runtime.deps.json",
+        "lib/net8.0/Telerik.Licensing.Runtime.dll",
+        "lib/net9.0/Telerik.Licensing.Runtime.deps.json",
+        "lib/net9.0/Telerik.Licensing.Runtime.dll",
+        "lib/netstandard2.0/Telerik.Licensing.Runtime.deps.json",
+        "lib/netstandard2.0/Telerik.Licensing.Runtime.dll",
+        "tasks/netstandard2.0/System.Buffers.dll",
+        "tasks/netstandard2.0/System.CodeDom.dll",
+        "tasks/netstandard2.0/System.Collections.Immutable.dll",
+        "tasks/netstandard2.0/System.Management.dll",
+        "tasks/netstandard2.0/System.Memory.dll",
+        "tasks/netstandard2.0/System.Numerics.Vectors.dll",
+        "tasks/netstandard2.0/System.Reflection.Metadata.dll",
+        "tasks/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "tasks/netstandard2.0/Telerik.Licensing.Tasks.deps.json",
+        "tasks/netstandard2.0/Telerik.Licensing.Tasks.dll",
+        "telerik.licensing.1.8.2.nupkg.sha512",
+        "telerik.licensing.nuspec"
+      ]
+    },
+    "Telerik.Pivot.Core/0.1.7": {
+      "sha512": "4LiDUL1GjhaMvt8AfSMgVOMmrh1G7lli0AXuw7e3qTsXFYDBvPSYSPDk0F4Vokd6EPNfizdplrgO5talWqI5Bw==",
+      "type": "package",
+      "path": "telerik.pivot.core/0.1.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Telerik.Pivot.Core.dll",
+        "telerik.pivot.core.0.1.7.nupkg.sha512",
+        "telerik.pivot.core.nuspec"
+      ]
+    },
+    "Telerik.Pivot.DataProviders.Xmla/0.1.8": {
+      "sha512": "X0uhDnLT3cHt5dN4OEKhqW2hvsBA4LQkWxtfsVIaXfWCWzfHmDyluRJ7p2Z3rSeqU22lyVE0nfQdmpo5UYL9/Q==",
+      "type": "package",
+      "path": "telerik.pivot.dataproviders.xmla/0.1.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Telerik.Pivot.DataProviders.Xmla.dll",
+        "telerik.pivot.dataproviders.xmla.0.1.8.nupkg.sha512",
+        "telerik.pivot.dataproviders.xmla.nuspec"
+      ]
+    },
+    "Telerik.Recurrence/0.2.7": {
+      "sha512": "RZNtBRKtd2V8VU7oxO+39doBwXKD+W3KZ15j40PEB9R3lzkOpbYk6dWPAFv5d+dV2MAt4J7wUcpe2Ql9DPjeVA==",
+      "type": "package",
+      "path": "telerik.recurrence/0.2.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Telerik.Recurrence.dll",
+        "telerik.recurrence.0.2.7.nupkg.sha512",
+        "telerik.recurrence.nuspec"
+      ]
+    },
+    "Telerik.SvgIcons/4.8.0": {
+      "sha512": "CAWiJd6SB+AECyfL7bGjDpzxgoElt6gqEf7aDpUzi8KIgrqvQhum0y9lZa1ez7VtcdzLl6fMgpjTAy8Y9Wapjg==",
+      "type": "package",
+      "path": "telerik.svgicons/4.8.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/netstandard2.0/Telerik.SvgIcons.dll",
+        "telerik.svgicons.4.8.0.nupkg.sha512",
+        "telerik.svgicons.nuspec"
+      ]
+    },
+    "Telerik.UI.for.Blazor/13.3.0": {
+      "sha512": "x47yZHKAdqAjd4WL/PeAggJCALtySi0n5Rv0QTXhi76r6uizabPE3VIN0jZ1VWXMUB71SJSncP+3jqbvPFDjOQ==",
+      "type": "package",
+      "path": "telerik.ui.for.blazor/13.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "build/Telerik.UI.for.Blazor.props",
+        "buildMultiTargeting/Telerik.UI.for.Blazor.props",
+        "buildTransitive/Telerik.UI.for.Blazor.props",
+        "lib/net8.0/Telerik.Blazor.dll",
+        "lib/net8.0/Telerik.Blazor.xml",
+        "staticwebassets/css/kendo-font-icons/font-icons.css",
+        "staticwebassets/css/kendo-font-icons/kendo-font-icons.ttf",
+        "staticwebassets/css/kendo-theme-bootstrap/all.css",
+        "staticwebassets/css/kendo-theme-default/all.css",
+        "staticwebassets/css/kendo-theme-default/default-ocean-blue.css",
+        "staticwebassets/css/kendo-theme-fluent/all.css",
+        "staticwebassets/css/kendo-theme-material/all.css",
+        "staticwebassets/images/blazor.png",
+        "staticwebassets/js/telerik-blazor.js",
+        "staticwebassets/license-agreement/EULA.txt",
+        "telerik.ui.for.blazor.13.3.0.nupkg.sha512",
+        "telerik.ui.for.blazor.nuspec"
+      ]
+    },
+    "Telerik.Zip/2026.1.402": {
+      "sha512": "4NWtJNjUZ4z20BPotonuRUo7BhAuwFbat0+GoGvN9OuS2s2fA8DN1SFhnutcaQFRg2L9mJotDXqYCO6N8yJvVQ==",
+      "type": "package",
+      "path": "telerik.zip/2026.1.402",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LicenseAgreements/EULA.txt",
+        "LicenseAgreements/ThirdParty/Progress Telerik Document Processing Libraries - notices.txt",
+        "images/tdp.png",
+        "lib/netstandard2.0/Telerik.Zip.dll",
+        "lib/netstandard2.0/Telerik.Zip.xml",
+        "telerik.zip.2026.1.402.nupkg.sha512",
+        "telerik.zip.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "Microsoft.AspNetCore.App.Internal.Assets >= 10.0.6"
+      "ClosedXML >= 0.105.0",
+      "Microsoft.AspNetCore.App.Internal.Assets >= 10.0.6",
+      "Telerik.UI.for.Blazor >= 13.3.0"
     ]
   },
   "packageFolders": {
@@ -89,11 +982,19 @@
       "net10.0": {
         "targetAlias": "net10.0",
         "dependencies": {
+          "ClosedXML": {
+            "target": "Package",
+            "version": "[0.105.0, )"
+          },
           "Microsoft.AspNetCore.App.Internal.Assets": {
             "suppressParent": "All",
             "target": "Package",
             "version": "[10.0.6, )",
             "autoReferenced": true
+          },
+          "Telerik.UI.for.Blazor": {
+            "target": "Package",
+            "version": "[13.3.0, )"
           }
         },
         "imports": [

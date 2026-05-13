@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MediaPlanApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+972cc52823d15e1e408e87512dea7d2a5ae1822d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d925c8f20c2762accee8c405f8e43aa2fc7f4ce")]
 [assembly: System.Reflection.AssemblyProductAttribute("MediaPlanApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MediaPlanApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

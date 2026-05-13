@@ -1,0 +1,77 @@
+@page "/spread-demo"
+@using System.Text.Json
+@using Telerik.Documents.SpreadsheetStreaming
+@inject IWebHostEnvironment Env
+
+<PageTitle>Spreadsheet Demo</PageTitle>
+
+@if (SpreadsheetData is not null)
+{
+    <TelerikSpreadsheet Data="@SpreadsheetData" Height="600px" Width="100%">
+    </TelerikSpreadsheet>
+}
+else
+{
+    <p>Loading spreadsheet data...</p>
+}
+
+@code {
+    private byte[]? SpreadsheetData { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        SpreadsheetData = await Task.Run(BuildSpreadsheetFromJson);
+    }
+
+    private byte[] BuildSpreadsheetFromJson()
+    {
+        var jsonPath = Path.Combine(Env.WebRootPath, "data", "media-budget.json");
+        var rows = JsonSerializer.Deserialize<List<Dictionary<string, JsonElement>>>(
+            System.IO.File.ReadAllText(jsonPath))!;
+
+        var headers = rows[0].Keys.ToList();
+
+        using var stream = new MemoryStream();
+        using (var workbook = SpreadExporter.CreateWorkbookExporter(SpreadDocumentFormat.Xlsx, stream))
+        using (var worksheet = workbook.CreateWorksheetExporter("Media Budget"))
+        {
+            WriteRow(worksheet, headers, isHeader: true);
+            foreach (var row in rows)
+                WriteDataRow(worksheet, row, headers);
+        }
+
+        return stream.ToArray();
+    }
+
+    private static void WriteRow(IWorksheetExporter worksheet, IEnumerable<string> values, bool isHeader)
+    {
+        using var row = worksheet.CreateRowExporter();
+        foreach (var value in values)
+        {
+            using var cell = row.CreateCellExporter();
+            if (isHeader)
+            {
+                cell.SetValue(value);
+                cell.SetFormat(new SpreadCellFormat { IsBold = true });
+            }
+            else
+            {
+                cell.SetValue(value);
+            }
+        }
+    }
+
+    private static void WriteDataRow(IWorksheetExporter worksheet, Dictionary<string, JsonElement> row, List<string> headers)
+    {
+        using var rowExporter = worksheet.CreateRowExporter();
+        foreach (var header in headers)
+        {
+            using var cell = rowExporter.CreateCellExporter();
+            var element = row[header];
+            if (element.ValueKind == JsonValueKind.Number)
+                cell.SetValue(element.GetDouble());
+            else
+                cell.SetValue(element.GetString() ?? string.Empty);
+        }
+    }
+}
