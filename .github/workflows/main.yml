@@ -28,7 +28,22 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Add Telerik NuGet credentials
-        run: dotnet nuget update source telerik --username 'api-key' --password '${{ secrets.TELERIK_NUGET_KEY }}' --store-password-in-clear-text
+        run: |
+          cat > nuget.config << EOF
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <packageSources>
+              <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+              <add key="telerik" value="https://nuget.telerik.com/v3/index.json" />
+            </packageSources>
+            <packageSourceCredentials>
+              <telerik>
+                <add key="Username" value="api-key" />
+                <add key="ClearTextPassword" value="${{ secrets.TELERIK_NUGET_KEY }}" />
+              </telerik>
+            </packageSourceCredentials>
+          </configuration>
+          EOF
 
       - name: Write Telerik license
         run: echo '${{ secrets.TELERIK_LICENSE }}' > telerik-license.txt
