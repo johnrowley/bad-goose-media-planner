@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sudo chmod -R u+rw /Users/johnrowley/.templateengine)",
+      "Bash(DOTNET_TEMPLATE_ENGINE_CACHE_DIR=/tmp/templatecache dotnet new blazor --interactivity Server --name MediaPlanApp --output /Users/johnrowley/GitHub/MindmapProjects/MediaPlan/MediaPlanApp)",
+      "Bash(DOTNET_CLI_HOME=/tmp/dotnet-home dotnet build)",
+      "Bash(DOTNET_CLI_HOME=/tmp/dotnet-home dotnet run --no-launch-profile)",
+      "Bash(curl -s http://localhost:5000)",
+      "Bash(pkill -f \"dotnet run\")",
+      "Bash(pkill -f MediaPlanApp)",
+      "Bash(curl -sL \"https://docs.google.com/spreadsheets/d/1ejHCx4UsT6ZodKtH-ruNI1jEUxbR6uwoQIt8jP-LDig/export?format=csv&gid=0\")"
+    ]
+  }
+}

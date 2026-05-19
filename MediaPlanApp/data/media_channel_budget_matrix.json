@@ -1,0 +1,1813 @@
+{
+  "schemaVersion": "1.0",
+  "source": {
+    "workbook": "Media_Channel_Budget_Decision_Matrix.xlsx",
+    "sheet": "Compact Matrix",
+    "generatedAtUtc": "2026-05-13T17:43:34.541665Z"
+  },
+  "notes": [
+    "Percentages are parsed directly from the Compact Matrix sheet.",
+    "Some recommendations intentionally total below 100%; treat the remainder as unallocated or reserved for channels outside the audience/budget overlap.",
+    "The €2,000–€10,000 rules for several age groups total 105% in the source matrix and are flagged in warnings."
+  ],
+  "ageSegments": [
+    {
+      "key": "under_25",
+      "label": "Under 25"
+    },
+    {
+      "key": "25_34",
+      "label": "25–34"
+    },
+    {
+      "key": "35_44",
+      "label": "35–44"
+    },
+    {
+      "key": "45_54",
+      "label": "45–54"
+    },
+    {
+      "key": "55plus",
+      "label": "55+"
+    }
+  ],
+  "budgetBands": [
+    {
+      "key": "under_eur2_000",
+      "label": "under €2,000"
+    },
+    {
+      "key": "eur2_000_eur10_000",
+      "label": "€2,000–€10,000"
+    },
+    {
+      "key": "eur10_000_eur25_000",
+      "label": "€10,000–€25,000"
+    },
+    {
+      "key": "eur25_000_eur50_000",
+      "label": "€25,000–€50,000"
+    },
+    {
+      "key": "eur50_000_eur100_000",
+      "label": "€50,000–€100,000"
+    },
+    {
+      "key": "eur100_000_eur200_000",
+      "label": "€100,000–€200,000"
+    },
+    {
+      "key": "eur200_000plus",
+      "label": "€200,000+"
+    }
+  ],
+  "channels": [
+    {
+      "key": "digital_audio",
+      "label": "Digital Audio"
+    },
+    {
+      "key": "google_search",
+      "label": "Google Search"
+    },
+    {
+      "key": "outdoor",
+      "label": "Outdoor"
+    },
+    {
+      "key": "radio",
+      "label": "Radio"
+    },
+    {
+      "key": "social",
+      "label": "Social"
+    },
+    {
+      "key": "spotify",
+      "label": "Spotify"
+    },
+    {
+      "key": "tv_vod",
+      "label": "TV/VOD"
+    },
+    {
+      "key": "vod",
+      "label": "VOD"
+    }
+  ],
+  "recommendations": [
+    {
+      "audienceSegment": "Under 25",
+      "audienceSegmentKey": "under_25",
+      "budgetBand": "under €2,000",
+      "budgetBandKey": "under_eur2_000",
+      "recommended": false,
+      "status": "not_recommended",
+      "message": "Not recommended as a client campaign",
+      "allocations": [],
+      "totalPercent": 0,
+      "warnings": []
+    },
+    {
+      "audienceSegment": "Under 25",
+      "audienceSegmentKey": "under_25",
+      "budgetBand": "€2,000–€10,000",
+      "budgetBandKey": "eur2_000_eur10_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 80
+        }
+      ],
+      "totalPercent": 80,
+      "warnings": [
+        "Allocation total is 80%, leaving 20% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "Under 25",
+      "audienceSegmentKey": "under_25",
+      "budgetBand": "€10,000–€25,000",
+      "budgetBandKey": "eur10_000_eur25_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 35
+        },
+        {
+          "channel": "Spotify",
+          "channelKey": "spotify",
+          "percent": 20
+        }
+      ],
+      "totalPercent": 55,
+      "warnings": [
+        "Allocation total is 55%, leaving 45% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "Under 25",
+      "audienceSegmentKey": "under_25",
+      "budgetBand": "€25,000–€50,000",
+      "budgetBandKey": "eur25_000_eur50_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 20
+        },
+        {
+          "channel": "Spotify",
+          "channelKey": "spotify",
+          "percent": 10
+        }
+      ],
+      "totalPercent": 30,
+      "warnings": [
+        "Allocation total is 30%, leaving 70% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "Under 25",
+      "audienceSegmentKey": "under_25",
+      "budgetBand": "€50,000–€100,000",
+      "budgetBandKey": "eur50_000_eur100_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 25
+        }
+      ],
+      "totalPercent": 25,
+      "warnings": [
+        "Allocation total is 25%, leaving 75% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "Under 25",
+      "audienceSegmentKey": "under_25",
+      "budgetBand": "€100,000–€200,000",
+      "budgetBandKey": "eur100_000_eur200_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Spotify",
+          "channelKey": "spotify",
+          "percent": 15
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 15
+        }
+      ],
+      "totalPercent": 30,
+      "warnings": [
+        "Allocation total is 30%, leaving 70% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "Under 25",
+      "audienceSegmentKey": "under_25",
+      "budgetBand": "€200,000+",
+      "budgetBandKey": "eur200_000plus",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Spotify",
+          "channelKey": "spotify",
+          "percent": 10
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 15
+        }
+      ],
+      "totalPercent": 25,
+      "warnings": [
+        "Allocation total is 25%, leaving 75% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "25–34",
+      "audienceSegmentKey": "25_34",
+      "budgetBand": "under €2,000",
+      "budgetBandKey": "under_eur2_000",
+      "recommended": false,
+      "status": "not_recommended",
+      "message": "Not recommended as a client campaign",
+      "allocations": [],
+      "totalPercent": 0,
+      "warnings": []
+    },
+    {
+      "audienceSegment": "25–34",
+      "audienceSegmentKey": "25_34",
+      "budgetBand": "€2,000–€10,000",
+      "budgetBandKey": "eur2_000_eur10_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 80
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 25
+        }
+      ],
+      "totalPercent": 105,
+      "warnings": [
+        "Allocation total is 105%, which exceeds 100%."
+      ]
+    },
+    {
+      "audienceSegment": "25–34",
+      "audienceSegmentKey": "25_34",
+      "budgetBand": "€10,000–€25,000",
+      "budgetBandKey": "eur10_000_eur25_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 35
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 25
+        },
+        {
+          "channel": "VOD",
+          "channelKey": "vod",
+          "percent": 20
+        },
+        {
+          "channel": "Digital Audio",
+          "channelKey": "digital_audio",
+          "percent": 20
+        }
+      ],
+      "totalPercent": 100,
+      "warnings": []
+    },
+    {
+      "audienceSegment": "25–34",
+      "audienceSegmentKey": "25_34",
+      "budgetBand": "€25,000–€50,000",
+      "budgetBandKey": "eur25_000_eur50_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 10
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 20
+        },
+        {
+          "channel": "VOD",
+          "channelKey": "vod",
+          "percent": 10
+        },
+        {
+          "channel": "Digital Audio",
+          "channelKey": "digital_audio",
+          "percent": 10
+        }
+      ],
+      "totalPercent": 50,
+      "warnings": [
+        "Allocation total is 50%, leaving 50% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "25–34",
+      "audienceSegmentKey": "25_34",
+      "budgetBand": "€50,000–€100,000",
+      "budgetBandKey": "eur50_000_eur100_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 25
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 15
+        },
+        {
+          "channel": "VOD",
+          "channelKey": "vod",
+          "percent": 40
+        }
+      ],
+      "totalPercent": 80,
+      "warnings": [
+        "Allocation total is 80%, leaving 20% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "25–34",
+      "audienceSegmentKey": "25_34",
+      "budgetBand": "€100,000–€200,000",
+      "budgetBandKey": "eur100_000_eur200_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "VOD",
+          "channelKey": "vod",
+          "percent": 40
+        },
+        {
+          "channel": "Digital Audio",
+          "channelKey": "digital_audio",
+          "percent": 15
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 15
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 10
+        }
+      ],
+      "totalPercent": 80,
+      "warnings": [
+        "Allocation total is 80%, leaving 20% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "25–34",
+      "audienceSegmentKey": "25_34",
+      "budgetBand": "€200,000+",
+      "budgetBandKey": "eur200_000plus",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "VOD",
+          "channelKey": "vod",
+          "percent": 35
+        },
+        {
+          "channel": "Digital Audio",
+          "channelKey": "digital_audio",
+          "percent": 10
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 15
+        }
+      ],
+      "totalPercent": 60,
+      "warnings": [
+        "Allocation total is 60%, leaving 40% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "35–44",
+      "audienceSegmentKey": "35_44",
+      "budgetBand": "under €2,000",
+      "budgetBandKey": "under_eur2_000",
+      "recommended": false,
+      "status": "not_recommended",
+      "message": "Not recommended as a client campaign",
+      "allocations": [],
+      "totalPercent": 0,
+      "warnings": []
+    },
+    {
+      "audienceSegment": "35–44",
+      "audienceSegmentKey": "35_44",
+      "budgetBand": "€2,000–€10,000",
+      "budgetBandKey": "eur2_000_eur10_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 80
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 25
+        }
+      ],
+      "totalPercent": 105,
+      "warnings": [
+        "Allocation total is 105%, which exceeds 100%."
+      ]
+    },
+    {
+      "audienceSegment": "35–44",
+      "audienceSegmentKey": "35_44",
+      "budgetBand": "€10,000–€25,000",
+      "budgetBandKey": "eur10_000_eur25_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 35
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 25
+        },
+        {
+          "channel": "VOD",
+          "channelKey": "vod",
+          "percent": 20
+        },
+        {
+          "channel": "Digital Audio",
+          "channelKey": "digital_audio",
+          "percent": 20
+        }
+      ],
+      "totalPercent": 100,
+      "warnings": []
+    },
+    {
+      "audienceSegment": "35–44",
+      "audienceSegmentKey": "35_44",
+      "budgetBand": "€25,000–€50,000",
+      "budgetBandKey": "eur25_000_eur50_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 10
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 20
+        },
+        {
+          "channel": "VOD",
+          "channelKey": "vod",
+          "percent": 10
+        },
+        {
+          "channel": "Digital Audio",
+          "channelKey": "digital_audio",
+          "percent": 10
+        },
+        {
+          "channel": "Radio",
+          "channelKey": "radio",
+          "percent": 50
+        }
+      ],
+      "totalPercent": 100,
+      "warnings": []
+    },
+    {
+      "audienceSegment": "35–44",
+      "audienceSegmentKey": "35_44",
+      "budgetBand": "€50,000–€100,000",
+      "budgetBandKey": "eur50_000_eur100_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 25
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 15
+        },
+        {
+          "channel": "VOD",
+          "channelKey": "vod",
+          "percent": 40
+        }
+      ],
+      "totalPercent": 80,
+      "warnings": [
+        "Allocation total is 80%, leaving 20% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "35–44",
+      "audienceSegmentKey": "35_44",
+      "budgetBand": "€100,000–€200,000",
+      "budgetBandKey": "eur100_000_eur200_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "VOD",
+          "channelKey": "vod",
+          "percent": 40
+        },
+        {
+          "channel": "Radio",
+          "channelKey": "radio",
+          "percent": 20
+        },
+        {
+          "channel": "Digital Audio",
+          "channelKey": "digital_audio",
+          "percent": 15
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 15
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 10
+        }
+      ],
+      "totalPercent": 100,
+      "warnings": []
+    },
+    {
+      "audienceSegment": "35–44",
+      "audienceSegmentKey": "35_44",
+      "budgetBand": "€200,000+",
+      "budgetBandKey": "eur200_000plus",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "VOD",
+          "channelKey": "vod",
+          "percent": 35
+        },
+        {
+          "channel": "Radio",
+          "channelKey": "radio",
+          "percent": 20
+        },
+        {
+          "channel": "Digital Audio",
+          "channelKey": "digital_audio",
+          "percent": 10
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 15
+        }
+      ],
+      "totalPercent": 80,
+      "warnings": [
+        "Allocation total is 80%, leaving 20% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "45–54",
+      "audienceSegmentKey": "45_54",
+      "budgetBand": "under €2,000",
+      "budgetBandKey": "under_eur2_000",
+      "recommended": false,
+      "status": "not_recommended",
+      "message": "Not recommended as a client campaign",
+      "allocations": [],
+      "totalPercent": 0,
+      "warnings": []
+    },
+    {
+      "audienceSegment": "45–54",
+      "audienceSegmentKey": "45_54",
+      "budgetBand": "€2,000–€10,000",
+      "budgetBandKey": "eur2_000_eur10_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 80
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 25
+        }
+      ],
+      "totalPercent": 105,
+      "warnings": [
+        "Allocation total is 105%, which exceeds 100%."
+      ]
+    },
+    {
+      "audienceSegment": "45–54",
+      "audienceSegmentKey": "45_54",
+      "budgetBand": "€10,000–€25,000",
+      "budgetBandKey": "eur10_000_eur25_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 35
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 25
+        }
+      ],
+      "totalPercent": 60,
+      "warnings": [
+        "Allocation total is 60%, leaving 40% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "45–54",
+      "audienceSegmentKey": "45_54",
+      "budgetBand": "€25,000–€50,000",
+      "budgetBandKey": "eur25_000_eur50_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 10
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 20
+        },
+        {
+          "channel": "Radio",
+          "channelKey": "radio",
+          "percent": 50
+        }
+      ],
+      "totalPercent": 80,
+      "warnings": [
+        "Allocation total is 80%, leaving 20% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "45–54",
+      "audienceSegmentKey": "45_54",
+      "budgetBand": "€50,000–€100,000",
+      "budgetBandKey": "eur50_000_eur100_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 25
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 15
+        },
+        {
+          "channel": "Outdoor",
+          "channelKey": "outdoor",
+          "percent": 20
+        }
+      ],
+      "totalPercent": 60,
+      "warnings": [
+        "Allocation total is 60%, leaving 40% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "45–54",
+      "audienceSegmentKey": "45_54",
+      "budgetBand": "€100,000–€200,000",
+      "budgetBandKey": "eur100_000_eur200_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Radio",
+          "channelKey": "radio",
+          "percent": 20
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 15
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 10
+        }
+      ],
+      "totalPercent": 45,
+      "warnings": [
+        "Allocation total is 45%, leaving 55% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "45–54",
+      "audienceSegmentKey": "45_54",
+      "budgetBand": "€200,000+",
+      "budgetBandKey": "eur200_000plus",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Radio",
+          "channelKey": "radio",
+          "percent": 20
+        },
+        {
+          "channel": "Outdoor",
+          "channelKey": "outdoor",
+          "percent": 20
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 15
+        }
+      ],
+      "totalPercent": 55,
+      "warnings": [
+        "Allocation total is 55%, leaving 45% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "55+",
+      "audienceSegmentKey": "55plus",
+      "budgetBand": "under €2,000",
+      "budgetBandKey": "under_eur2_000",
+      "recommended": false,
+      "status": "not_recommended",
+      "message": "Not recommended as a client campaign",
+      "allocations": [],
+      "totalPercent": 0,
+      "warnings": []
+    },
+    {
+      "audienceSegment": "55+",
+      "audienceSegmentKey": "55plus",
+      "budgetBand": "€2,000–€10,000",
+      "budgetBandKey": "eur2_000_eur10_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 80
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 25
+        }
+      ],
+      "totalPercent": 105,
+      "warnings": [
+        "Allocation total is 105%, which exceeds 100%."
+      ]
+    },
+    {
+      "audienceSegment": "55+",
+      "audienceSegmentKey": "55plus",
+      "budgetBand": "€10,000–€25,000",
+      "budgetBandKey": "eur10_000_eur25_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 35
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 25
+        },
+        {
+          "channel": "TV/VOD",
+          "channelKey": "tv_vod",
+          "percent": 20
+        }
+      ],
+      "totalPercent": 80,
+      "warnings": [
+        "Allocation total is 80%, leaving 20% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "55+",
+      "audienceSegmentKey": "55plus",
+      "budgetBand": "€25,000–€50,000",
+      "budgetBandKey": "eur25_000_eur50_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 10
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 20
+        },
+        {
+          "channel": "TV/VOD",
+          "channelKey": "tv_vod",
+          "percent": 10
+        },
+        {
+          "channel": "Radio",
+          "channelKey": "radio",
+          "percent": 50
+        }
+      ],
+      "totalPercent": 90,
+      "warnings": [
+        "Allocation total is 90%, leaving 10% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "55+",
+      "audienceSegmentKey": "55plus",
+      "budgetBand": "€50,000–€100,000",
+      "budgetBandKey": "eur50_000_eur100_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 25
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 15
+        },
+        {
+          "channel": "TV/VOD",
+          "channelKey": "tv_vod",
+          "percent": 40
+        },
+        {
+          "channel": "Outdoor",
+          "channelKey": "outdoor",
+          "percent": 20
+        }
+      ],
+      "totalPercent": 100,
+      "warnings": []
+    },
+    {
+      "audienceSegment": "55+",
+      "audienceSegmentKey": "55plus",
+      "budgetBand": "€100,000–€200,000",
+      "budgetBandKey": "eur100_000_eur200_000",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "TV/VOD",
+          "channelKey": "tv_vod",
+          "percent": 40
+        },
+        {
+          "channel": "Radio",
+          "channelKey": "radio",
+          "percent": 20
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 15
+        },
+        {
+          "channel": "Google Search",
+          "channelKey": "google_search",
+          "percent": 10
+        }
+      ],
+      "totalPercent": 85,
+      "warnings": [
+        "Allocation total is 85%, leaving 15% unallocated."
+      ]
+    },
+    {
+      "audienceSegment": "55+",
+      "audienceSegmentKey": "55plus",
+      "budgetBand": "€200,000+",
+      "budgetBandKey": "eur200_000plus",
+      "recommended": true,
+      "status": "recommended",
+      "allocations": [
+        {
+          "channel": "TV/VOD",
+          "channelKey": "tv_vod",
+          "percent": 35
+        },
+        {
+          "channel": "Radio",
+          "channelKey": "radio",
+          "percent": 20
+        },
+        {
+          "channel": "Outdoor",
+          "channelKey": "outdoor",
+          "percent": 20
+        },
+        {
+          "channel": "Social",
+          "channelKey": "social",
+          "percent": 15
+        }
+      ],
+      "totalPercent": 90,
+      "warnings": [
+        "Allocation total is 90%, leaving 10% unallocated."
+      ]
+    }
+  ],
+  "lookup": {
+    "under_25": {
+      "under_eur2_000": {
+        "recommended": false,
+        "status": "not_recommended",
+        "message": "Not recommended as a client campaign",
+        "allocations": [],
+        "totalPercent": 0,
+        "warnings": []
+      },
+      "eur2_000_eur10_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 80
+          }
+        ],
+        "totalPercent": 80,
+        "warnings": [
+          "Allocation total is 80%, leaving 20% unallocated."
+        ]
+      },
+      "eur10_000_eur25_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 35
+          },
+          {
+            "channel": "Spotify",
+            "channelKey": "spotify",
+            "percent": 20
+          }
+        ],
+        "totalPercent": 55,
+        "warnings": [
+          "Allocation total is 55%, leaving 45% unallocated."
+        ]
+      },
+      "eur25_000_eur50_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 20
+          },
+          {
+            "channel": "Spotify",
+            "channelKey": "spotify",
+            "percent": 10
+          }
+        ],
+        "totalPercent": 30,
+        "warnings": [
+          "Allocation total is 30%, leaving 70% unallocated."
+        ]
+      },
+      "eur50_000_eur100_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 25
+          }
+        ],
+        "totalPercent": 25,
+        "warnings": [
+          "Allocation total is 25%, leaving 75% unallocated."
+        ]
+      },
+      "eur100_000_eur200_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Spotify",
+            "channelKey": "spotify",
+            "percent": 15
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 15
+          }
+        ],
+        "totalPercent": 30,
+        "warnings": [
+          "Allocation total is 30%, leaving 70% unallocated."
+        ]
+      },
+      "eur200_000plus": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Spotify",
+            "channelKey": "spotify",
+            "percent": 10
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 15
+          }
+        ],
+        "totalPercent": 25,
+        "warnings": [
+          "Allocation total is 25%, leaving 75% unallocated."
+        ]
+      }
+    },
+    "25_34": {
+      "under_eur2_000": {
+        "recommended": false,
+        "status": "not_recommended",
+        "message": "Not recommended as a client campaign",
+        "allocations": [],
+        "totalPercent": 0,
+        "warnings": []
+      },
+      "eur2_000_eur10_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 80
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 25
+          }
+        ],
+        "totalPercent": 105,
+        "warnings": [
+          "Allocation total is 105%, which exceeds 100%."
+        ]
+      },
+      "eur10_000_eur25_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 35
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 25
+          },
+          {
+            "channel": "VOD",
+            "channelKey": "vod",
+            "percent": 20
+          },
+          {
+            "channel": "Digital Audio",
+            "channelKey": "digital_audio",
+            "percent": 20
+          }
+        ],
+        "totalPercent": 100,
+        "warnings": []
+      },
+      "eur25_000_eur50_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 10
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 20
+          },
+          {
+            "channel": "VOD",
+            "channelKey": "vod",
+            "percent": 10
+          },
+          {
+            "channel": "Digital Audio",
+            "channelKey": "digital_audio",
+            "percent": 10
+          }
+        ],
+        "totalPercent": 50,
+        "warnings": [
+          "Allocation total is 50%, leaving 50% unallocated."
+        ]
+      },
+      "eur50_000_eur100_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 25
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 15
+          },
+          {
+            "channel": "VOD",
+            "channelKey": "vod",
+            "percent": 40
+          }
+        ],
+        "totalPercent": 80,
+        "warnings": [
+          "Allocation total is 80%, leaving 20% unallocated."
+        ]
+      },
+      "eur100_000_eur200_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "VOD",
+            "channelKey": "vod",
+            "percent": 40
+          },
+          {
+            "channel": "Digital Audio",
+            "channelKey": "digital_audio",
+            "percent": 15
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 15
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 10
+          }
+        ],
+        "totalPercent": 80,
+        "warnings": [
+          "Allocation total is 80%, leaving 20% unallocated."
+        ]
+      },
+      "eur200_000plus": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "VOD",
+            "channelKey": "vod",
+            "percent": 35
+          },
+          {
+            "channel": "Digital Audio",
+            "channelKey": "digital_audio",
+            "percent": 10
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 15
+          }
+        ],
+        "totalPercent": 60,
+        "warnings": [
+          "Allocation total is 60%, leaving 40% unallocated."
+        ]
+      }
+    },
+    "35_44": {
+      "under_eur2_000": {
+        "recommended": false,
+        "status": "not_recommended",
+        "message": "Not recommended as a client campaign",
+        "allocations": [],
+        "totalPercent": 0,
+        "warnings": []
+      },
+      "eur2_000_eur10_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 80
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 25
+          }
+        ],
+        "totalPercent": 105,
+        "warnings": [
+          "Allocation total is 105%, which exceeds 100%."
+        ]
+      },
+      "eur10_000_eur25_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 35
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 25
+          },
+          {
+            "channel": "VOD",
+            "channelKey": "vod",
+            "percent": 20
+          },
+          {
+            "channel": "Digital Audio",
+            "channelKey": "digital_audio",
+            "percent": 20
+          }
+        ],
+        "totalPercent": 100,
+        "warnings": []
+      },
+      "eur25_000_eur50_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 10
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 20
+          },
+          {
+            "channel": "VOD",
+            "channelKey": "vod",
+            "percent": 10
+          },
+          {
+            "channel": "Digital Audio",
+            "channelKey": "digital_audio",
+            "percent": 10
+          },
+          {
+            "channel": "Radio",
+            "channelKey": "radio",
+            "percent": 50
+          }
+        ],
+        "totalPercent": 100,
+        "warnings": []
+      },
+      "eur50_000_eur100_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 25
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 15
+          },
+          {
+            "channel": "VOD",
+            "channelKey": "vod",
+            "percent": 40
+          }
+        ],
+        "totalPercent": 80,
+        "warnings": [
+          "Allocation total is 80%, leaving 20% unallocated."
+        ]
+      },
+      "eur100_000_eur200_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "VOD",
+            "channelKey": "vod",
+            "percent": 40
+          },
+          {
+            "channel": "Radio",
+            "channelKey": "radio",
+            "percent": 20
+          },
+          {
+            "channel": "Digital Audio",
+            "channelKey": "digital_audio",
+            "percent": 15
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 15
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 10
+          }
+        ],
+        "totalPercent": 100,
+        "warnings": []
+      },
+      "eur200_000plus": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "VOD",
+            "channelKey": "vod",
+            "percent": 35
+          },
+          {
+            "channel": "Radio",
+            "channelKey": "radio",
+            "percent": 20
+          },
+          {
+            "channel": "Digital Audio",
+            "channelKey": "digital_audio",
+            "percent": 10
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 15
+          }
+        ],
+        "totalPercent": 80,
+        "warnings": [
+          "Allocation total is 80%, leaving 20% unallocated."
+        ]
+      }
+    },
+    "45_54": {
+      "under_eur2_000": {
+        "recommended": false,
+        "status": "not_recommended",
+        "message": "Not recommended as a client campaign",
+        "allocations": [],
+        "totalPercent": 0,
+        "warnings": []
+      },
+      "eur2_000_eur10_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 80
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 25
+          }
+        ],
+        "totalPercent": 105,
+        "warnings": [
+          "Allocation total is 105%, which exceeds 100%."
+        ]
+      },
+      "eur10_000_eur25_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 35
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 25
+          }
+        ],
+        "totalPercent": 60,
+        "warnings": [
+          "Allocation total is 60%, leaving 40% unallocated."
+        ]
+      },
+      "eur25_000_eur50_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 10
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 20
+          },
+          {
+            "channel": "Radio",
+            "channelKey": "radio",
+            "percent": 50
+          }
+        ],
+        "totalPercent": 80,
+        "warnings": [
+          "Allocation total is 80%, leaving 20% unallocated."
+        ]
+      },
+      "eur50_000_eur100_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 25
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 15
+          },
+          {
+            "channel": "Outdoor",
+            "channelKey": "outdoor",
+            "percent": 20
+          }
+        ],
+        "totalPercent": 60,
+        "warnings": [
+          "Allocation total is 60%, leaving 40% unallocated."
+        ]
+      },
+      "eur100_000_eur200_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Radio",
+            "channelKey": "radio",
+            "percent": 20
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 15
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 10
+          }
+        ],
+        "totalPercent": 45,
+        "warnings": [
+          "Allocation total is 45%, leaving 55% unallocated."
+        ]
+      },
+      "eur200_000plus": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Radio",
+            "channelKey": "radio",
+            "percent": 20
+          },
+          {
+            "channel": "Outdoor",
+            "channelKey": "outdoor",
+            "percent": 20
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 15
+          }
+        ],
+        "totalPercent": 55,
+        "warnings": [
+          "Allocation total is 55%, leaving 45% unallocated."
+        ]
+      }
+    },
+    "55plus": {
+      "under_eur2_000": {
+        "recommended": false,
+        "status": "not_recommended",
+        "message": "Not recommended as a client campaign",
+        "allocations": [],
+        "totalPercent": 0,
+        "warnings": []
+      },
+      "eur2_000_eur10_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 80
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 25
+          }
+        ],
+        "totalPercent": 105,
+        "warnings": [
+          "Allocation total is 105%, which exceeds 100%."
+        ]
+      },
+      "eur10_000_eur25_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 35
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 25
+          },
+          {
+            "channel": "TV/VOD",
+            "channelKey": "tv_vod",
+            "percent": 20
+          }
+        ],
+        "totalPercent": 80,
+        "warnings": [
+          "Allocation total is 80%, leaving 20% unallocated."
+        ]
+      },
+      "eur25_000_eur50_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 10
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 20
+          },
+          {
+            "channel": "TV/VOD",
+            "channelKey": "tv_vod",
+            "percent": 10
+          },
+          {
+            "channel": "Radio",
+            "channelKey": "radio",
+            "percent": 50
+          }
+        ],
+        "totalPercent": 90,
+        "warnings": [
+          "Allocation total is 90%, leaving 10% unallocated."
+        ]
+      },
+      "eur50_000_eur100_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 25
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 15
+          },
+          {
+            "channel": "TV/VOD",
+            "channelKey": "tv_vod",
+            "percent": 40
+          },
+          {
+            "channel": "Outdoor",
+            "channelKey": "outdoor",
+            "percent": 20
+          }
+        ],
+        "totalPercent": 100,
+        "warnings": []
+      },
+      "eur100_000_eur200_000": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "TV/VOD",
+            "channelKey": "tv_vod",
+            "percent": 40
+          },
+          {
+            "channel": "Radio",
+            "channelKey": "radio",
+            "percent": 20
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 15
+          },
+          {
+            "channel": "Google Search",
+            "channelKey": "google_search",
+            "percent": 10
+          }
+        ],
+        "totalPercent": 85,
+        "warnings": [
+          "Allocation total is 85%, leaving 15% unallocated."
+        ]
+      },
+      "eur200_000plus": {
+        "recommended": true,
+        "status": "recommended",
+        "allocations": [
+          {
+            "channel": "TV/VOD",
+            "channelKey": "tv_vod",
+            "percent": 35
+          },
+          {
+            "channel": "Radio",
+            "channelKey": "radio",
+            "percent": 20
+          },
+          {
+            "channel": "Outdoor",
+            "channelKey": "outdoor",
+            "percent": 20
+          },
+          {
+            "channel": "Social",
+            "channelKey": "social",
+            "percent": 15
+          }
+        ],
+        "totalPercent": 90,
+        "warnings": [
+          "Allocation total is 90%, leaving 10% unallocated."
+        ]
+      }
+    }
+  }
+}

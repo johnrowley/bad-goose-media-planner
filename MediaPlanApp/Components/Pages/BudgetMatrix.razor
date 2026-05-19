@@ -1,0 +1,144 @@
+@page "/budget-matrix"
+@inject IWebHostEnvironment Env
+@using System.Text.Json
+
+<PageTitle>Budget Matrix</PageTitle>
+
+<h1>Budget Matrix</h1>
+<p class="text-muted mb-4">Select your audience age group and campaign budget to see recommended channel allocations.</p>
+
+@if (matrix is null)
+{
+    <p>Loading data...</p>
+}
+else
+{
+    <div class="d-flex gap-4 flex-wrap mb-4">
+        <div>
+            <label class="form-label fw-semibold">Age Segment</label><br />
+            <TelerikDropDownList Data="@matrix.AgeSegments"
+                                 @bind-Value="selectedAgeKey"
+                                 TextField="@nameof(Segment.Label)"
+                                 ValueField="@nameof(Segment.Key)"
+                                 DefaultText="— Select age group —"
+                                 Width="240px" />
+        </div>
+        <div>
+            <label class="form-label fw-semibold">Budget Band</label><br />
+            <TelerikDropDownList Data="@matrix.BudgetBands"
+                                 @bind-Value="selectedBudgetKey"
+                                 TextField="@nameof(Segment.Label)"
+                                 ValueField="@nameof(Segment.Key)"
+                                 DefaultText="— Select budget —"
+                                 Width="240px" />
+        </div>
+    </div>
+
+    @if (Recommendation is not null)
+    {
+        @if (!Recommendation.Recommended)
+        {
+            <div class="alert alert-warning mt-3" style="max-width: 520px;">
+                <strong>Not Recommended</strong><br />
+                @Recommendation.Message
+            </div>
+        }
+        else
+        {
+            <h5 class="mb-3">Recommended Channel Allocations</h5>
+
+            <table class="table table-hover" style="max-width: 480px;">
+                <thead class="table-light">
+                    <tr>
+                        <th>Channel</th>
+                        <th class="text-end">Allocation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var alloc in Recommendation.Allocations)
+                    {
+                        <tr>
+                            <td>@alloc.Channel</td>
+                            <td class="text-end">@alloc.Percent%</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="fw-bold @(Recommendation.TotalPercent != 100 ? "table-warning" : "")">
+                        <td>Total</td>
+                        <td class="text-end">@Recommendation.TotalPercent%</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            @if (Recommendation.Warnings.Any())
+            {
+                <div class="mt-2" style="max-width: 480px;">
+                    @foreach (var warning in Recommendation.Warnings)
+                    {
+                        <p class="text-warning mb-1">&#9888; @warning</p>
+                    }
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Recommendation.Message))
+            {
+                <p class="text-muted mt-2 fst-italic">@Recommendation.Message</p>
+            }
+        }
+    }
+    else if (!string.IsNullOrEmpty(selectedAgeKey) && !string.IsNullOrEmpty(selectedBudgetKey))
+    {
+        <p class="text-muted">No recommendation found for this combination.</p>
+    }
+}
+
+@code {
+    private MatrixData? matrix;
+    private string selectedAgeKey = string.Empty;
+    private string selectedBudgetKey = string.Empty;
+
+    private RecommendationEntry? Recommendation =>
+        matrix is null || string.IsNullOrEmpty(selectedAgeKey) || string.IsNullOrEmpty(selectedBudgetKey)
+            ? null
+            : matrix.Recommendations.FirstOrDefault(r =>
+                r.AudienceSegmentKey == selectedAgeKey && r.BudgetBandKey == selectedBudgetKey);
+
+    protected override async Task OnInitializedAsync()
+    {
+        var path = Path.Combine(Env.ContentRootPath, "data", "media_channel_budget_matrix.json");
+        await using var stream = File.OpenRead(path);
+        matrix = await JsonSerializer.DeserializeAsync<MatrixData>(stream,
+            new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+    }
+
+    private class MatrixData
+    {
+        public List<Segment> AgeSegments { get; set; } = [];
+        public List<Segment> BudgetBands { get; set; } = [];
+        public List<RecommendationEntry> Recommendations { get; set; } = [];
+    }
+
+    private class Segment
+    {
+        public string Key { get; set; } = string.Empty;
+        public string Label { get; set; } = string.Empty;
+    }
+
+    private class RecommendationEntry
+    {
+        public string AudienceSegmentKey { get; set; } = string.Empty;
+        public string BudgetBandKey { get; set; } = string.Empty;
+        public bool Recommended { get; set; }
+        public string? Message { get; set; }
+        public List<Allocation> Allocations { get; set; } = [];
+        public int TotalPercent { get; set; }
+        public List<string> Warnings { get; set; } = [];
+    }
+
+    private class Allocation
+    {
+        public string Channel { get; set; } = string.Empty;
+        public int Percent { get; set; }
+    }
+}
