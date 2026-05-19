@@ -71,9 +71,21 @@ else
                 </tfoot>
             </table>
 
+            <div class="mt-4" style="max-width: 480px;">
+                <ApexChart TItem="Allocation"
+                           Title="Channel Allocation"
+                           Options="@chartOptions">
+                    <ApexPointSeries TItem="Allocation"
+                                     Items="@Recommendation.Allocations"
+                                     SeriesType="SeriesType.Pie"
+                                     XValue="@(a => a.Channel)"
+                                     YValue="@(a => a.Percent)" />
+                </ApexChart>
+            </div>
+
             @if (Recommendation.Warnings.Any())
             {
-                <div class="mt-2" style="max-width: 480px;">
+                <div class="mt-2" style="max-width: 640px;">
                     @foreach (var warning in Recommendation.Warnings)
                     {
                         <p class="text-warning mb-1">&#9888; @warning</p>
@@ -85,6 +97,25 @@ else
             {
                 <p class="text-muted mt-2 fst-italic">@Recommendation.Message</p>
             }
+
+            <h5 class="mt-4 mb-3">Channel Details</h5>
+            <table class="table table-bordered" style="max-width: 640px;">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 160px;">Channel</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var alloc in Recommendation.Allocations)
+                    {
+                        <tr>
+                            <td class="fw-semibold">@alloc.Channel</td>
+                            <td class="text-muted">@(ChannelDescriptions.GetValueOrDefault(alloc.ChannelKey, string.Empty))</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
     }
     else if (!string.IsNullOrEmpty(selectedAgeKey) && !string.IsNullOrEmpty(selectedBudgetKey))
@@ -98,11 +129,28 @@ else
     private string selectedAgeKey = string.Empty;
     private string selectedBudgetKey = string.Empty;
 
+    private ApexChartOptions<Allocation> chartOptions = new()
+    {
+        Chart = new Chart { Height = 340 },
+        Legend = new Legend { Position = LegendPosition.Bottom },
+        DataLabels = new DataLabels
+        {
+            Formatter = "function(val) { return val.toFixed(0) + '%' }"
+        },
+        Tooltip = new Tooltip
+        {
+            Y = new TooltipY { Formatter = "function(val) { return val + '%' }" }
+        }
+    };
+
     private RecommendationEntry? Recommendation =>
         matrix is null || string.IsNullOrEmpty(selectedAgeKey) || string.IsNullOrEmpty(selectedBudgetKey)
             ? null
             : matrix.Recommendations.FirstOrDefault(r =>
                 r.AudienceSegmentKey == selectedAgeKey && r.BudgetBandKey == selectedBudgetKey);
+
+    private Dictionary<string, string> ChannelDescriptions =>
+        matrix?.Channels.ToDictionary(c => c.Key, c => c.Description) ?? [];
 
     protected override async Task OnInitializedAsync()
     {
@@ -116,7 +164,15 @@ else
     {
         public List<Segment> AgeSegments { get; set; } = [];
         public List<Segment> BudgetBands { get; set; } = [];
+        public List<Channel> Channels { get; set; } = [];
         public List<RecommendationEntry> Recommendations { get; set; } = [];
+    }
+
+    private class Channel
+    {
+        public string Key { get; set; } = string.Empty;
+        public string Label { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
     }
 
     private class Segment
@@ -139,6 +195,7 @@ else
     private class Allocation
     {
         public string Channel { get; set; } = string.Empty;
+        public string ChannelKey { get; set; } = string.Empty;
         public int Percent { get; set; }
     }
 }

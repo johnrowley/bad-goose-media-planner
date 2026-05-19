@@ -1,3 +1,4 @@
+using ApexCharts;
 using MediaPlanApp.Components;
 using MediaPlanApp.Services;
 using Telerik.Blazor.Services;
@@ -11,6 +12,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddHttpClient<GoogleSheetsService>();
 builder.Services.AddTelerikBlazor();
 builder.Services.AddScoped<MediaPlanStateService>();
+builder.Services.AddApexCharts();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

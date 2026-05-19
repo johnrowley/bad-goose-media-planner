@@ -65,35 +65,43 @@
   "channels": [
     {
       "key": "digital_audio",
-      "label": "Digital Audio"
+      "label": "Digital Audio",
+      "description": "Programmatic audio ads served across streaming platforms and podcasts. High engagement with listeners in lean-back mode; suited to brand awareness and recall."
     },
     {
       "key": "google_search",
-      "label": "Google Search"
+      "label": "Google Search",
+      "description": "Paid search ads triggered by user intent keywords. Highly targeted and measurable; ideal for capturing demand at the bottom of the funnel."
     },
     {
       "key": "outdoor",
-      "label": "Outdoor"
+      "label": "Outdoor",
+      "description": "Out-of-home formats including 48-sheet billboards, 6-sheet panels, and DOOH screens. Strong for building broad local reach and brand presence in high-footfall areas."
     },
     {
       "key": "radio",
-      "label": "Radio"
+      "label": "Radio",
+      "description": "National and regional broadcast radio spots. Cost-effective for frequency and reach, particularly during breakfast and drive-time dayparts."
     },
     {
       "key": "social",
-      "label": "Social"
+      "label": "Social",
+      "description": "Paid placements across Facebook, Instagram, TikTok, and LinkedIn. Highly targetable by age, interest, and behaviour; effective for both awareness and direct response."
     },
     {
       "key": "spotify",
-      "label": "Spotify"
+      "label": "Spotify",
+      "description": "Audio and video ads within the Spotify free tier. Reaches a young, engaged audience in a distraction-free listening environment with strong demographic controls."
     },
     {
       "key": "tv_vod",
-      "label": "TV/VOD"
+      "label": "TV/VOD",
+      "description": "Linear television combined with video-on-demand pre-roll and mid-roll placements. Delivers mass reach and premium brand-safe content environments across all age groups."
     },
     {
       "key": "vod",
-      "label": "VOD"
+      "label": "VOD",
+      "description": "Video-on-demand advertising on platforms such as RTE Player, Virgin Media Player, and BVOD services. Combines TV-quality creative with digital targeting and measurability."
     }
   ],
   "recommendations": [
