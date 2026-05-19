@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget Matrix</title>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f6f9;
+      color: #212529;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      background: #fff;
+      border-bottom: 1px solid #dee2e6;
+      padding: 1.5rem 2rem 1.25rem;
+    }
+    .page-header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      letter-spacing: -0.02em;
+    }
+    .page-header p {
+      margin-top: 0.25rem;
+      color: #6c757d;
+      font-size: 0.95rem;
+    }
+
+    /* ── Layout ── */
+    .page-body {
+      display: flex;
+      gap: 1.75rem;
+      align-items: flex-start;
+      padding: 1.75rem 2rem;
+      max-width: 1400px;
+    }
+    .main-col  { flex: 1; min-width: 0; }
+    .json-col  { width: 400px; flex-shrink: 0; position: sticky; top: 1.5rem; }
+
+    /* ── Selectors ── */
+    .selectors {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+    }
+    .selector-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .selector-group select {
+      appearance: none;
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%236c757d'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
+      border: 1.5px solid #ced4da;
+      border-radius: 8px;
+      color: #212529;
+      font-size: 0.95rem;
+      padding: 0.55rem 2.25rem 0.55rem 0.85rem;
+      width: 240px;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .selector-group select:focus {
+      outline: none;
+      border-color: #4361ee;
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+    }
+
+    /* ── Cards / sections ── */
+    .card {
+      background: #fff;
+      border: 1px solid #e9ecef;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Warning / not-recommended ── */
+    .alert {
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+    .alert-warning {
+      background: #fff8e6;
+      border: 1.5px solid #ffc107;
+      color: #7d5a00;
+    }
+    .alert-warning strong { color: #7d5a00; }
+    .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
+
+    .warning-list { margin-top: 0.75rem; padding: 0; list-style: none; }
+    .warning-list li {
+      font-size: 0.88rem;
+      color: #7d5a00;
+      background: #fff8e6;
+      border: 1px solid #ffc10744;
+      border-radius: 6px;
+      padding: 0.4rem 0.7rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    /* ── Allocation table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    thead th {
+      background: #f8f9fa;
+      color: #6c757d;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.65rem 0.9rem;
+      border-bottom: 2px solid #dee2e6;
+      text-align: left;
+    }
+    thead th.right { text-align: right; }
+    tbody tr { border-bottom: 1px solid #f1f3f5; transition: background 0.1s; }
+    tbody tr:hover { background: #f8f9fa; }
+    tbody td { padding: 0.65rem 0.9rem; }
+    tbody td.right { text-align: right; }
+    tbody td.ch-name { font-weight: 600; color: #1a1a2e; }
+    tbody td.ch-pct  { font-weight: 700; color: #4361ee; font-size: 0.97rem; }
+    tbody td.ch-desc { color: #6c757d; font-size: 0.88rem; line-height: 1.45; }
+    tfoot td {
+      padding: 0.65rem 0.9rem;
+      font-weight: 700;
+      border-top: 2px solid #dee2e6;
+    }
+    tfoot td.right { text-align: right; }
+    tfoot .over { color: #dc3545; }
+    tfoot .exact { color: #198754; }
+    tfoot .under { color: #fd7e14; }
+
+    /* Progress bar inside allocation table */
+    .bar-cell { width: 120px; }
+    .bar-bg {
+      background: #e9ecef;
+      border-radius: 99px;
+      height: 7px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #4361ee, #7b91f5);
+      transition: width 0.4s ease;
+    }
+
+    /* ── Chart ── */
+    #chart-container { min-height: 320px; }
+
+    /* ── Channel detail table ── */
+    .detail-table tbody td.ch-name { width: 140px; white-space: nowrap; }
+
+    /* ── Placeholder ── */
+    .placeholder {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #adb5bd;
+    }
+    .placeholder-icon { font-size: 3rem; margin-bottom: 0.75rem; }
+    .placeholder p { font-size: 0.95rem; }
+
+    /* ── JSON panel ── */
+    .json-card {
+      background: #1e1e2e;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+    .json-header {
+      background: #313244;
+      padding: 0.7rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .json-header-title {
+      color: #cdd6f4;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .json-badge {
+      background: #45475a;
+      color: #a6adc8;
+      font-size: 0.68rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 99px;
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    }
+    .json-dots { display: flex; gap: 5px; margin-right: 0.5rem; }
+    .json-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .dot-red    { background: #ff5f57; }
+    .dot-yellow { background: #febc2e; }
+    .dot-green  { background: #28c840; }
+    .json-body {
+      margin: 0;
+      padding: 1rem 1.1rem;
+      font-size: 0.75rem;
+      line-height: 1.65;
+      color: #cdd6f4;
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      overflow-x: auto;
+      max-height: 80vh;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #45475a #1e1e2e;
+    }
+    .json-body::-webkit-scrollbar { width: 5px; height: 5px; }
+    .json-body::-webkit-scrollbar-track { background: #1e1e2e; }
+    .json-body::-webkit-scrollbar-thumb { background: #45475a; border-radius: 99px; }
+    .jk { color: #89b4fa; }
+    .js { color: #a6e3a1; }
+    .jn { color: #fab387; }
+    .jb { color: #f5c2e7; }
+    .jp { color: #6c7086; }
+
+    /* ── Responsive ── */
+    @media (max-width: 960px) {
+      .page-body { flex-direction: column; }
+      .json-col { width: 100%; position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Budget Matrix</h1>
+  <p>Select your audience age group and campaign budget to see recommended channel allocations.</p>
+</div>
+
+<div class="page-body">
+
+  <!-- ── Main column ── -->
+  <div class="main-col">
+    <div class="selectors">
+      <div class="selector-group">
+        <label for="age-select">Age Segment</label>
+        <select id="age-select"><option value="">— Select age group —</option></select>
+      </div>
+      <div class="selector-group">
+        <label for="budget-select">Budget Band</label>
+        <select id="budget-select"><option value="">— Select budget —</option></select>
+      </div>
+    </div>
+
+    <div id="results">
+      <div class="placeholder">
+        <div class="placeholder-icon">📊</div>
+        <p>Choose an age segment and budget band to see channel recommendations.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── JSON panel ── -->
+  <div class="json-col">
+    <div class="json-card">
+      <div class="json-header">
+        <div style="display:flex;align-items:center;gap:0.5rem;">
+          <div class="json-dots">
+            <div class="json-dot dot-red"></div>
+            <div class="json-dot dot-yellow"></div>
+            <div class="json-dot dot-green"></div>
+          </div>
+          <span class="json-header-title">JSON Source</span>
+        </div>
+        <span class="json-badge" id="json-badge">channels</span>
+      </div>
+      <pre class="json-body" id="json-body"></pre>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── Embedded data ──────────────────────────────────────────────────────────
+const MATRIX = {
+  "ageSegments": [
+    { "key": "under_25", "label": "Under 25" },
+    { "key": "25_34",    "label": "25–34" },
+    { "key": "35_44",    "label": "35–44" },
+    { "key": "45_54",    "label": "45–54" },
+    { "key": "55plus",   "label": "55+" }
+  ],
+  "budgetBands": [
+    { "key": "under_eur2_000",         "label": "under €2,000" },
+    { "key": "eur2_000_eur10_000",     "label": "€2,000–€10,000" },
+    { "key": "eur10_000_eur25_000",    "label": "€10,000–€25,000" },
+    { "key": "eur25_000_eur50_000",    "label": "€25,000–€50,000" },
+    { "key": "eur50_000_eur100_000",   "label": "€50,000–€100,000" },
+    { "key": "eur100_000_eur200_000",  "label": "€100,000–€200,000" },
+    { "key": "eur200_000plus",         "label": "€200,000+" }
+  ],
+  "channels": [
+    { "key": "digital_audio",  "label": "Digital Audio",  "description": "Programmatic audio ads served across streaming platforms and podcasts. High engagement with listeners in lean-back mode; suited to brand awareness and recall." },
+    { "key": "google_search",  "label": "Google Search",  "description": "Paid search ads triggered by user intent keywords. Highly targeted and measurable; ideal for capturing demand at the bottom of the funnel." },
+    { "key": "outdoor",        "label": "Outdoor",        "description": "Out-of-home formats including 48-sheet billboards, 6-sheet panels, and DOOH screens. Strong for building broad local reach and brand presence in high-footfall areas." },
+    { "key": "radio",          "label": "Radio",          "description": "National and regional broadcast radio spots. Cost-effective for frequency and reach, particularly during breakfast and drive-time dayparts." },
+    { "key": "social",         "label": "Social",         "description": "Paid placements across Facebook, Instagram, TikTok, and LinkedIn. Highly targetable by age, interest, and behaviour; effective for both awareness and direct response." },
+    { "key": "spotify",        "label": "Spotify",        "description": "Audio and video ads within the Spotify free tier. Reaches a young, engaged audience in a distraction-free listening environment with strong demographic controls." },
+    { "key": "tv_vod",         "label": "TV/VOD",         "description": "Linear television combined with video-on-demand pre-roll and mid-roll placements. Delivers mass reach and premium brand-safe content environments across all age groups." },
+    { "key": "vod",            "label": "VOD",            "description": "Video-on-demand advertising on platforms such as RTE Player, Virgin Media Player, and BVOD services. Combines TV-quality creative with digital targeting and measurability." }
+  ],
+  "lookup": {
+    "under_25": {
+      "under_eur2_000":        { "recommended": false, "message": "Not recommended as a client campaign", "allocations": [], "totalPercent": 0, "warnings": [] },
+      "eur2_000_eur10_000":    { "recommended": true,  "allocations": [{ "channel": "Social",   "channelKey": "social",   "percent": 80 }], "totalPercent": 80,  "warnings": ["Allocation total is 80%, leaving 20% unallocated."] },
+      "eur10_000_eur25_000":   { "recommended": true,  "allocations": [{ "channel": "Social",   "channelKey": "social",   "percent": 35 }, { "channel": "Spotify",       "channelKey": "spotify",       "percent": 20 }], "totalPercent": 55,  "warnings": ["Allocation total is 55%, leaving 45% unallocated."] },
+      "eur25_000_eur50_000":   { "recommended": true,  "allocations": [{ "channel": "Social",   "channelKey": "social",   "percent": 20 }, { "channel": "Spotify",       "channelKey": "spotify",       "percent": 10 }], "totalPercent": 30,  "warnings": ["Allocation total is 30%, leaving 70% unallocated."] },
+      "eur50_000_eur100_000":  { "recommended": true,  "allocations": [{ "channel": "Social",   "channelKey": "social",   "percent": 25 }], "totalPercent": 25,  "warnings": ["Allocation total is 25%, leaving 75% unallocated."] },
+      "eur100_000_eur200_000": { "recommended": true,  "allocations": [{ "channel": "Spotify",  "channelKey": "spotify",  "percent": 15 }, { "channel": "Social",        "channelKey": "social",        "percent": 15 }], "totalPercent": 30,  "warnings": ["Allocation total is 30%, leaving 70% unallocated."] },
+      "eur200_000plus":        { "recommended": true,  "allocations": [{ "channel": "Spotify",  "channelKey": "spotify",  "percent": 10 }, { "channel": "Social",        "channelKey": "social",        "percent": 15 }], "totalPercent": 25,  "warnings": ["Allocation total is 25%, leaving 75% unallocated."] }
+    },
+    "25_34": {
+      "under_eur2_000":        { "recommended": false, "message": "Not recommended as a client campaign", "allocations": [], "totalPercent": 0, "warnings": [] },
+      "eur2_000_eur10_000":    { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 80 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 25 }], "totalPercent": 105, "warnings": ["Allocation total is 105%, which exceeds 100%."] },
+      "eur10_000_eur25_000":   { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 35 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 25 }, { "channel": "VOD",           "channelKey": "vod",           "percent": 20 }, { "channel": "Digital Audio", "channelKey": "digital_audio", "percent": 20 }], "totalPercent": 100, "warnings": [] },
+      "eur25_000_eur50_000":   { "recommended": true,  "allocations": [{ "channel": "Google Search", "channelKey": "google_search", "percent": 10 }, { "channel": "Social",         "channelKey": "social",         "percent": 20 }, { "channel": "VOD",           "channelKey": "vod",           "percent": 10 }, { "channel": "Digital Audio", "channelKey": "digital_audio", "percent": 10 }], "totalPercent": 50,  "warnings": ["Allocation total is 50%, leaving 50% unallocated."] },
+      "eur50_000_eur100_000":  { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 25 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 15 }, { "channel": "VOD",           "channelKey": "vod",           "percent": 40 }], "totalPercent": 80,  "warnings": ["Allocation total is 80%, leaving 20% unallocated."] },
+      "eur100_000_eur200_000": { "recommended": true,  "allocations": [{ "channel": "VOD",           "channelKey": "vod",           "percent": 40 }, { "channel": "Digital Audio",  "channelKey": "digital_audio",  "percent": 15 }, { "channel": "Social",        "channelKey": "social",        "percent": 15 }, { "channel": "Google Search", "channelKey": "google_search", "percent": 10 }], "totalPercent": 80,  "warnings": ["Allocation total is 80%, leaving 20% unallocated."] },
+      "eur200_000plus":        { "recommended": true,  "allocations": [{ "channel": "VOD",           "channelKey": "vod",           "percent": 35 }, { "channel": "Digital Audio",  "channelKey": "digital_audio",  "percent": 10 }, { "channel": "Social",        "channelKey": "social",        "percent": 15 }], "totalPercent": 60,  "warnings": ["Allocation total is 60%, leaving 40% unallocated."] }
+    },
+    "35_44": {
+      "under_eur2_000":        { "recommended": false, "message": "Not recommended as a client campaign", "allocations": [], "totalPercent": 0, "warnings": [] },
+      "eur2_000_eur10_000":    { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 80 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 25 }], "totalPercent": 105, "warnings": ["Allocation total is 105%, which exceeds 100%."] },
+      "eur10_000_eur25_000":   { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 35 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 25 }, { "channel": "VOD",           "channelKey": "vod",           "percent": 20 }, { "channel": "Digital Audio", "channelKey": "digital_audio", "percent": 20 }], "totalPercent": 100, "warnings": [] },
+      "eur25_000_eur50_000":   { "recommended": true,  "allocations": [{ "channel": "Google Search", "channelKey": "google_search", "percent": 10 }, { "channel": "Social",         "channelKey": "social",         "percent": 20 }, { "channel": "VOD",           "channelKey": "vod",           "percent": 10 }, { "channel": "Digital Audio", "channelKey": "digital_audio", "percent": 10 }, { "channel": "Radio", "channelKey": "radio", "percent": 50 }], "totalPercent": 100, "warnings": [] },
+      "eur50_000_eur100_000":  { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 25 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 15 }, { "channel": "VOD",           "channelKey": "vod",           "percent": 40 }], "totalPercent": 80,  "warnings": ["Allocation total is 80%, leaving 20% unallocated."] },
+      "eur100_000_eur200_000": { "recommended": true,  "allocations": [{ "channel": "VOD",           "channelKey": "vod",           "percent": 40 }, { "channel": "Radio",          "channelKey": "radio",          "percent": 20 }, { "channel": "Digital Audio", "channelKey": "digital_audio", "percent": 15 }, { "channel": "Social", "channelKey": "social", "percent": 15 }, { "channel": "Google Search", "channelKey": "google_search", "percent": 10 }], "totalPercent": 100, "warnings": [] },
+      "eur200_000plus":        { "recommended": true,  "allocations": [{ "channel": "VOD",           "channelKey": "vod",           "percent": 35 }, { "channel": "Radio",          "channelKey": "radio",          "percent": 20 }, { "channel": "Digital Audio", "channelKey": "digital_audio", "percent": 10 }, { "channel": "Social", "channelKey": "social", "percent": 15 }], "totalPercent": 80,  "warnings": ["Allocation total is 80%, leaving 20% unallocated."] }
+    },
+    "45_54": {
+      "under_eur2_000":        { "recommended": false, "message": "Not recommended as a client campaign", "allocations": [], "totalPercent": 0, "warnings": [] },
+      "eur2_000_eur10_000":    { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 80 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 25 }], "totalPercent": 105, "warnings": ["Allocation total is 105%, which exceeds 100%."] },
+      "eur10_000_eur25_000":   { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 35 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 25 }], "totalPercent": 60,  "warnings": ["Allocation total is 60%, leaving 40% unallocated."] },
+      "eur25_000_eur50_000":   { "recommended": true,  "allocations": [{ "channel": "Google Search", "channelKey": "google_search", "percent": 10 }, { "channel": "Social",         "channelKey": "social",         "percent": 20 }, { "channel": "Radio",         "channelKey": "radio",         "percent": 50 }], "totalPercent": 80,  "warnings": ["Allocation total is 80%, leaving 20% unallocated."] },
+      "eur50_000_eur100_000":  { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 25 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 15 }, { "channel": "Outdoor",       "channelKey": "outdoor",       "percent": 20 }], "totalPercent": 60,  "warnings": ["Allocation total is 60%, leaving 40% unallocated."] },
+      "eur100_000_eur200_000": { "recommended": true,  "allocations": [{ "channel": "Radio",         "channelKey": "radio",         "percent": 20 }, { "channel": "Social",         "channelKey": "social",         "percent": 15 }, { "channel": "Google Search", "channelKey": "google_search", "percent": 10 }], "totalPercent": 45,  "warnings": ["Allocation total is 45%, leaving 55% unallocated."] },
+      "eur200_000plus":        { "recommended": true,  "allocations": [{ "channel": "Radio",         "channelKey": "radio",         "percent": 20 }, { "channel": "Outdoor",        "channelKey": "outdoor",        "percent": 20 }, { "channel": "Social",        "channelKey": "social",        "percent": 15 }], "totalPercent": 55,  "warnings": ["Allocation total is 55%, leaving 45% unallocated."] }
+    },
+    "55plus": {
+      "under_eur2_000":        { "recommended": false, "message": "Not recommended as a client campaign", "allocations": [], "totalPercent": 0, "warnings": [] },
+      "eur2_000_eur10_000":    { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 80 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 25 }], "totalPercent": 105, "warnings": ["Allocation total is 105%, which exceeds 100%."] },
+      "eur10_000_eur25_000":   { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 35 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 25 }, { "channel": "TV/VOD",        "channelKey": "tv_vod",        "percent": 20 }], "totalPercent": 80,  "warnings": ["Allocation total is 80%, leaving 20% unallocated."] },
+      "eur25_000_eur50_000":   { "recommended": true,  "allocations": [{ "channel": "Google Search", "channelKey": "google_search", "percent": 10 }, { "channel": "Social",         "channelKey": "social",         "percent": 20 }, { "channel": "TV/VOD",        "channelKey": "tv_vod",        "percent": 10 }, { "channel": "Radio",         "channelKey": "radio",         "percent": 50 }], "totalPercent": 90,  "warnings": ["Allocation total is 90%, leaving 10% unallocated."] },
+      "eur50_000_eur100_000":  { "recommended": true,  "allocations": [{ "channel": "Social",        "channelKey": "social",        "percent": 25 }, { "channel": "Google Search",  "channelKey": "google_search",  "percent": 15 }, { "channel": "TV/VOD",        "channelKey": "tv_vod",        "percent": 40 }, { "channel": "Outdoor",       "channelKey": "outdoor",       "percent": 20 }], "totalPercent": 100, "warnings": [] },
+      "eur100_000_eur200_000": { "recommended": true,  "allocations": [{ "channel": "TV/VOD",        "channelKey": "tv_vod",        "percent": 40 }, { "channel": "Radio",          "channelKey": "radio",          "percent": 20 }, { "channel": "Social",        "channelKey": "social",        "percent": 15 }, { "channel": "Google Search", "channelKey": "google_search", "percent": 10 }], "totalPercent": 85,  "warnings": ["Allocation total is 85%, leaving 15% unallocated."] },
+      "eur200_000plus":        { "recommended": true,  "allocations": [{ "channel": "TV/VOD",        "channelKey": "tv_vod",        "percent": 35 }, { "channel": "Radio",          "channelKey": "radio",          "percent": 20 }, { "channel": "Outdoor",       "channelKey": "outdoor",       "percent": 20 }, { "channel": "Social",        "channelKey": "social",        "percent": 15 }], "totalPercent": 90,  "warnings": ["Allocation total is 90%, leaving 10% unallocated."] }
+    }
+  }
+};
+
+// ── Build lookup maps ──────────────────────────────────────────────────────
+const channelMap = Object.fromEntries(MATRIX.channels.map(c => [c.key, c]));
+
+// ── Populate selects ───────────────────────────────────────────────────────
+const ageSelect    = document.getElementById('age-select');
+const budgetSelect = document.getElementById('budget-select');
+
+MATRIX.ageSegments.forEach(s => {
+  const o = document.createElement('option');
+  o.value = s.key; o.textContent = s.label;
+  ageSelect.appendChild(o);
+});
+MATRIX.budgetBands.forEach(b => {
+  const o = document.createElement('option');
+  o.value = b.key; o.textContent = b.label;
+  budgetSelect.appendChild(o);
+});
+
+// ── ApexChart instance ─────────────────────────────────────────────────────
+let chart = null;
+
+function renderChart(allocations) {
+  const opts = {
+    chart:  { type: 'pie', height: 320, fontFamily: 'inherit', animations: { speed: 400 } },
+    series: allocations.map(a => a.percent),
+    labels: allocations.map(a => a.channel),
+    legend: { position: 'bottom', fontSize: '13px' },
+    dataLabels: { formatter: val => Math.round(val) + '%', style: { fontSize: '13px' } },
+    tooltip:    { y: { formatter: val => val + '%' } },
+    colors: ['#4361ee','#7b91f5','#f72585','#4cc9f0','#f9844a','#a8dadc','#06d6a0','#ffd166']
+  };
+
+  if (chart) { chart.destroy(); chart = null; }
+  document.getElementById('chart-container').innerHTML = '';
+  chart = new ApexCharts(document.getElementById('chart-container'), opts);
+  chart.render();
+}
+
+// ── JSON syntax highlighter ────────────────────────────────────────────────
+function highlightJson(obj) {
+  const raw = JSON.stringify(obj, null, 2);
+  let i = 0, out = '';
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  while (i < raw.length) {
+    const ch = raw[i];
+    if (ch === '"') {
+      let end = i + 1;
+      while (end < raw.length) {
+        if (raw[end] === '\\') { end += 2; continue; }
+        if (raw[end] === '"')  { break; }
+        end++;
+      }
+      const tok = raw.slice(i, end + 1);
+      let peek = end + 1;
+      while (peek < raw.length && raw[peek] === ' ') peek++;
+      const isKey = raw[peek] === ':';
+      out += `<span class="${isKey ? 'jk' : 'js'}">${esc(tok)}</span>`;
+      i = end + 1;
+    } else if (ch === '-' || (ch >= '0' && ch <= '9')) {
+      let end = i;
+      while (end < raw.length && '0123456789.-+eE'.includes(raw[end])) end++;
+      out += `<span class="jn">${raw.slice(i, end)}</span>`;
+      i = end;
+    } else if (raw.startsWith('true',  i)) { out += `<span class="jb">true</span>`;  i += 4; }
+      else if (raw.startsWith('false', i)) { out += `<span class="jb">false</span>`; i += 5; }
+      else if (raw.startsWith('null',  i)) { out += `<span class="jb">null</span>`;  i += 4; }
+      else if ('{}[]:,'.includes(ch))      { out += `<span class="jp">${ch}</span>`; i++; }
+      else                                  { out += ch; i++; }
+  }
+  return out;
+}
+
+function updateJsonPanel(data, label) {
+  document.getElementById('json-badge').textContent = label;
+  document.getElementById('json-body').innerHTML = highlightJson(data);
+}
+
+// ── Render results ─────────────────────────────────────────────────────────
+function render() {
+  const ageKey    = ageSelect.value;
+  const budgetKey = budgetSelect.value;
+  const resultsEl = document.getElementById('results');
+
+  if (!ageKey || !budgetKey) {
+    if (chart) { chart.destroy(); chart = null; }
+    resultsEl.innerHTML = `
+      <div class="placeholder">
+        <div class="placeholder-icon">📊</div>
+        <p>Choose an age segment and budget band to see channel recommendations.</p>
+      </div>`;
+    updateJsonPanel(MATRIX.channels, 'channels');
+    return;
+  }
+
+  const rec = MATRIX.lookup[ageKey]?.[budgetKey];
+  if (!rec) {
+    resultsEl.innerHTML = `<p style="color:#6c757d">No data found for this combination.</p>`;
+    return;
+  }
+
+  updateJsonPanel(rec, 'recommendation');
+
+  if (!rec.recommended) {
+    if (chart) { chart.destroy(); chart = null; }
+    resultsEl.innerHTML = `
+      <div class="alert alert-warning">
+        <span class="alert-icon">⚠️</span>
+        <div><strong>Not Recommended</strong><br>${rec.message}</div>
+      </div>`;
+    return;
+  }
+
+  // Total percent colour class
+  const tp    = rec.totalPercent;
+  const tpCls = tp > 100 ? 'over' : tp === 100 ? 'exact' : 'under';
+
+  // Allocation rows
+  const allocRows = rec.allocations.map(a => `
+    <tr>
+      <td class="ch-name">${a.channel}</td>
+      <td class="ch-pct right">${a.percent}%</td>
+      <td class="bar-cell">
+        <div class="bar-bg"><div class="bar-fill" style="width:${Math.min(a.percent,100)}%"></div></div>
+      </td>
+    </tr>`).join('');
+
+  // Warnings
+  const warningsHtml = rec.warnings.length ? `
+    <div class="card">
+      <ul class="warning-list">
+        ${rec.warnings.map(w => `<li><span>⚠️</span>${w}</li>`).join('')}
+      </ul>
+    </div>` : '';
+
+  // Channel detail rows (only for channels in this recommendation)
+  const detailRows = rec.allocations.map(a => {
+    const ch = channelMap[a.channelKey];
+    return `
+      <tr>
+        <td class="ch-name">${a.channel}</td>
+        <td class="ch-desc">${ch ? ch.description : ''}</td>
+      </tr>`;
+  }).join('');
+
+  resultsEl.innerHTML = `
+    <div class="card">
+      <div class="card-title">Recommended Channel Allocations</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Channel</th>
+            <th class="right">Allocation</th>
+            <th class="bar-cell"></th>
+          </tr>
+        </thead>
+        <tbody>${allocRows}</tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td class="right ${tpCls}">${tp}%</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Budget Distribution</div>
+      <div id="chart-container"></div>
+    </div>
+
+    ${warningsHtml}
+
+    <div class="card">
+      <div class="card-title">Channel Details</div>
+      <table class="detail-table">
+        <thead>
+          <tr><th>Channel</th><th>Description</th></tr>
+        </thead>
+        <tbody>${detailRows}</tbody>
+      </table>
+    </div>`;
+
+  renderChart(rec.allocations);
+}
+
+ageSelect.addEventListener('change', render);
+budgetSelect.addEventListener('change', render);
+
+// Initialise JSON panel with channel list
+updateJsonPanel(MATRIX.channels, 'channels');
+</script>
+</body>
+</html>
