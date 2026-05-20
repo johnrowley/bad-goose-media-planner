@@ -181,6 +181,29 @@
       transition: width 0.4s ease;
     }
 
+    /* ── Channel description expand row ── */
+    .alloc-row { cursor: default; }
+    .alloc-row:hover td { background: #f0f4ff; }
+    .desc-row td {
+      padding: 0;
+      border: none;
+    }
+    .desc-inner {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.22s ease, padding 0.22s ease;
+      padding: 0 0.9rem;
+      font-size: 0.85rem;
+      color: #4361ee;
+      background: #f0f4ff;
+      border-left: 3px solid #4361ee;
+      line-height: 1.5;
+    }
+    .desc-row.open .desc-inner {
+      max-height: 80px;
+      padding: 0.5rem 0.9rem 0.5rem 0.75rem;
+    }
+
     /* ── Chart ── */
     #chart-container { min-height: 320px; }
 
@@ -547,15 +570,21 @@ function render() {
   const tp    = rec.totalPercent;
   const tpCls = tp > 100 ? 'over' : tp === 100 ? 'exact' : 'under';
 
-  // Allocation rows
-  const allocRows = rec.allocations.map(a => `
-    <tr>
+  // Allocation rows (each paired with a hidden description row)
+  const allocRows = rec.allocations.map((a, i) => {
+    const desc = channelMap[a.channelKey]?.description ?? '';
+    return `
+    <tr class="alloc-row" data-desc-id="desc-${i}">
       <td class="ch-name">${a.channel}</td>
       <td class="ch-pct right">${a.percent}%</td>
       <td class="bar-cell">
         <div class="bar-bg"><div class="bar-fill" style="width:${Math.min(a.percent,100)}%"></div></div>
       </td>
-    </tr>`).join('');
+    </tr>
+    <tr class="desc-row" id="desc-${i}">
+      <td colspan="3"><div class="desc-inner">${desc}</div></td>
+    </tr>`;
+  }).join('');
 
   // Warnings
   const warningsHtml = rec.warnings.length ? `
@@ -615,6 +644,13 @@ function render() {
     </div>`;
 
   renderChart(rec.allocations);
+
+  // Bind hover expand on allocation rows
+  resultsEl.querySelectorAll('.alloc-row').forEach(row => {
+    const descRow = document.getElementById(row.dataset.descId);
+    row.addEventListener('mouseenter', () => descRow?.classList.add('open'));
+    row.addEventListener('mouseleave', () => descRow?.classList.remove('open'));
+  });
 }
 
 document.getElementById('objective-select').addEventListener('change', function () {
