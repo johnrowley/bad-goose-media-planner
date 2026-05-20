@@ -77,6 +77,12 @@
       border-color: #4361ee;
       box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
     }
+    .selector-group select:disabled {
+      background-color: #f1f3f5;
+      color: #adb5bd;
+      cursor: not-allowed;
+      border-color: #e9ecef;
+    }
 
     /* ── Cards / sections ── */
     .card {
@@ -190,6 +196,33 @@
     .placeholder-icon { font-size: 3rem; margin-bottom: 0.75rem; }
     .placeholder p { font-size: 0.95rem; }
 
+    /* ── JSON toggle checkbox ── */
+    .json-toggle-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 0.35rem;
+      gap: 0.35rem;
+    }
+    .json-toggle-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #495057;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      cursor: pointer;
+      user-select: none;
+    }
+    .json-toggle-group input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #4361ee;
+      cursor: pointer;
+    }
+
+    .json-col { display: none; }
+    .json-col.visible { display: block; }
+
     /* ── JSON panel ── */
     .json-card {
       background: #1e1e2e;
@@ -279,11 +312,15 @@
       </div>
       <div class="selector-group">
         <label for="age-select">Age Segment</label>
-        <select id="age-select"><option value="">— Select age group —</option></select>
+        <select id="age-select" disabled><option value="">— Select age group —</option></select>
       </div>
       <div class="selector-group">
         <label for="budget-select">Budget Band</label>
-        <select id="budget-select"><option value="">— Select budget —</option></select>
+        <select id="budget-select" disabled><option value="">— Select budget —</option></select>
+      </div>
+      <div class="json-toggle-group">
+        <input type="checkbox" id="json-toggle" />
+        <label for="json-toggle">Show JSON</label>
       </div>
     </div>
 
@@ -580,8 +617,23 @@ function render() {
   renderChart(rec.allocations);
 }
 
+document.getElementById('objective-select').addEventListener('change', function () {
+  const hasObjective = this.value !== '';
+  ageSelect.disabled    = !hasObjective;
+  budgetSelect.disabled = !hasObjective;
+  if (!hasObjective) {
+    ageSelect.value    = '';
+    budgetSelect.value = '';
+    render();
+  }
+});
+
 ageSelect.addEventListener('change', render);
 budgetSelect.addEventListener('change', render);
+
+document.getElementById('json-toggle').addEventListener('change', function () {
+  document.querySelector('.json-col').classList.toggle('visible', this.checked);
+});
 
 // Initialise JSON panel with channel list
 updateJsonPanel(MATRIX.channels, 'channels');
